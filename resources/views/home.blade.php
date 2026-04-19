@@ -144,34 +144,6 @@
       </aside>
     </section>
 
-    <section class="py-16 pattern-dots">
-      <div class="mx-auto max-w-7xl px-4">
-        <h2 class="section-title font-heading text-3xl text-sgcNavy">Departments at a Glance</h2>
-        <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          <a href="{{ route('departments.show', 'physics') }}" class="panel-card rounded-xl bg-white p-4 border border-slate-200 hover:border-sgcGold focus-ring">
-            <p class="font-semibold">Physics</p>
-            <p class="text-sm text-slate-500">B.Sc., M.Sc.</p>
-          </a>
-          <a href="{{ route('departments.show', 'chemistry') }}" class="panel-card rounded-xl bg-white p-4 border border-slate-200 hover:border-sgcGold focus-ring">
-            <p class="font-semibold">Chemistry</p>
-            <p class="text-sm text-slate-500">B.Sc., M.Sc.</p>
-          </a>
-          <a href="{{ route('departments.show', 'commerce') }}" class="panel-card rounded-xl bg-white p-4 border border-slate-200 hover:border-sgcGold focus-ring">
-            <p class="font-semibold">Commerce</p>
-            <p class="text-sm text-slate-500">B.Com, M.Com</p>
-          </a>
-          <a href="{{ route('departments.show', 'english') }}" class="panel-card rounded-xl bg-white p-4 border border-slate-200 hover:border-sgcGold focus-ring">
-            <p class="font-semibold">English</p>
-            <p class="text-sm text-slate-500">B.A., M.A., Integrated</p>
-          </a>
-          <a href="{{ route('departments.show', 'computer-science') }}" class="panel-card rounded-xl bg-white p-4 border border-slate-200 hover:border-sgcGold focus-ring">
-            <p class="font-semibold">Computer Science</p>
-            <p class="text-sm text-slate-500">BCA</p>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <section class="mx-auto max-w-7xl px-4 py-16">
       <h2 class="section-title font-heading text-3xl text-sgcNavy">Top Recruiters</h2>
       <div class="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">

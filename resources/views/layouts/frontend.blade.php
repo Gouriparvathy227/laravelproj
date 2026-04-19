@@ -58,6 +58,15 @@
         <a href="{{ url('/notices') }}" class="focus-ring {{ request()->is('notices*') ? 'nav-active' : 'nav-link' }}">Notices</a>
         <a href="{{ url('/gallery') }}" class="focus-ring {{ request()->is('gallery*') ? 'nav-active' : 'nav-link' }}">Gallery</a>
         <a href="{{ url('/contact') }}" class="focus-ring {{ request()->is('contact') ? 'nav-active' : 'nav-link' }}">Contact</a>
+        @guest
+          <a href="{{ route('login') }}" class="focus-ring {{ request()->is('login') ? 'nav-active' : 'nav-link' }}">Login</a>
+        @else
+          <a href="{{ route('dashboard') }}" class="focus-ring {{ request()->is('dashboard') ? 'nav-active' : 'nav-link' }}">Dashboard</a>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="focus-ring nav-link">Logout</button>
+          </form>
+        @endguest
         <a href="{{ url('/admissions/apply') }}" class="nav-apply focus-ring">Quick Apply</a>
       </nav>
     </div>
@@ -73,6 +82,15 @@
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/notices') }}">Notices</a>
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/gallery') }}">Gallery</a>
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/contact') }}">Contact</a>
+        @guest
+          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ route('login') }}">Login</a>
+        @else
+          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ route('dashboard') }}">Dashboard</a>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="w-full text-left px-2 py-2 rounded hover:bg-slate-100 focus-ring">Logout</button>
+          </form>
+        @endguest
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/admissions/apply') }}">Apply Online</a>
       </div>
     </nav>
