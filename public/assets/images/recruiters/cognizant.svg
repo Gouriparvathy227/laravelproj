@@ -1,0 +1,11 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Cognizant logo">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0033a0" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" rx="22" fill="url(#g)" />
+  <text x="160" y="88" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#ffffff">COGN</text>
+  <text x="160" y="126" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#e2e8f0">Cognizant</text>
+</svg>
