@@ -44,6 +44,8 @@
         "vercel": [
             "@php artisan config:clear --ansi",
             "@php artisan route:clear --ansi",
+            "@php artisan migrate --force --ansi",
+            "@php artisan db:seed --class=AdminUserSeeder --force --ansi",
             "npm ci",
             "npm run build"
         ],
