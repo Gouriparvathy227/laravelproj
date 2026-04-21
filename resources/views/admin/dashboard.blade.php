@@ -32,6 +32,11 @@
                     <h3 class="font-bold text-lg text-blue-700">Inquiry Inbox</h3>
                     <p class="text-sm text-gray-600 mt-1">Review contact-form submissions stored in database.</p>
                 </a>
+
+                <a href="{{ route('admin.admissions.index') }}" class="block p-5 border rounded-lg bg-white hover:bg-gray-50 transition">
+                    <h3 class="font-bold text-lg text-blue-700">Admission Requests</h3>
+                    <p class="text-sm text-gray-600 mt-1">Review online admission applications submitted by students.</p>
+                </a>
             </div>
         </div>
     </div>

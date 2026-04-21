@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcademicsController;
+use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
 use App\Http\Controllers\Admin\FacultyController as AdminFacultyController;
@@ -81,6 +82,9 @@ Route::middleware(['auth', 'role:super_admin,dept_admin'])->prefix('admin')->nam
 
     Route::get('/inquiries', [AdminInquiryController::class, 'index'])->name('inquiries.index');
     Route::delete('/inquiries/{inquiry}', [AdminInquiryController::class, 'destroy'])->name('inquiries.destroy');
+
+    Route::get('/admissions', [AdminAdmissionController::class, 'index'])->name('admissions.index');
+    Route::patch('/admissions/{application}', [AdminAdmissionController::class, 'updateStatus'])->name('admissions.update');
 });
 
 Route::middleware(['auth', 'role:faculty'])->prefix('faculty-portal')->name('faculty.')->group(function () {
