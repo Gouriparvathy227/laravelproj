@@ -125,7 +125,7 @@
             @elseif(auth()->user()->role === 'faculty')
               <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/faculty-portal/dashboard') }}">Faculty Portal</a></li>
             @else
-              <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/admin/dashboard') }}">Admin Dashboard</a></li>
+              <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('dashboard') }}">Dashboard</a></li>
             @endif
           @else
             <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('admissions.apply') }}">Apply Online</a></li>
