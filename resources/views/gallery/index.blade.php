@@ -6,24 +6,26 @@
       <p class="mt-4 text-slate-700">Explore campus life, academic moments, sports, and cultural celebrations.</p>
     </header>
 
-    <section class="mt-8 rounded-2xl bg-white border border-slate-200 p-7" data-filter-group>
+    <section class="mt-8 rounded-2xl bg-white border border-slate-200 p-7" x-data="{ f: 'all', items: {{ \Illuminate\Support\Js::from($galleries) }} }">
       <div class="flex flex-wrap gap-2">
-        <button data-filter-control="all" class="rounded-full border border-slate-300 px-4 py-2 text-sm filter-active focus-ring">All</button>
-        <button data-filter-control="academic" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring">Academic</button>
-        <button data-filter-control="sports" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring">Sports</button>
-        <button data-filter-control="cultural" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring">Cultural</button>
-        <button data-filter-control="nss" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring">NSS</button>
-        <button data-filter-control="2026" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring">2026</button>
-        <button data-filter-control="2025" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring">2025</button>
+        <button @click="f = 'all'" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring" :class="f === 'all' ? 'filter-active' : ''">All</button>
+        <button @click="f = 'academic'" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring" :class="f === 'academic' ? 'filter-active' : ''">Academic</button>
+        <button @click="f = 'sports'" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring" :class="f === 'sports' ? 'filter-active' : ''">Sports</button>
+        <button @click="f = 'cultural'" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring" :class="f === 'cultural' ? 'filter-active' : ''">Cultural</button>
+        <button @click="f = 'nss'" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring" :class="f === 'nss' ? 'filter-active' : ''">NSS</button>
+        <button @click="f = '2026'" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring" :class="f === '2026' ? 'filter-active' : ''">2026</button>
+        <button @click="f = '2025'" class="rounded-full border border-slate-300 px-4 py-2 text-sm focus-ring" :class="f === '2025' ? 'filter-active' : ''">2025</button>
       </div>
 
-      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 relative min-h-[420px]">
-        <figure data-filter-item="academic,2026" class="rounded-xl overflow-hidden border border-slate-200 bg-white"><img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-graduation-1.jpeg') }}" alt="St. George's College graduation ceremony" /><figcaption class="p-3 text-sm">Graduation Ceremony - 2026</figcaption></figure>
-        <figure data-filter-item="cultural,2026" class="rounded-xl overflow-hidden border border-slate-200 bg-white"><img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-graduation-2.jpeg') }}" alt="Cultural celebration at St. George's College" /><figcaption class="p-3 text-sm">Campus Cultural Event - 2026</figcaption></figure>
-        <figure data-filter-item="sports,2025" class="rounded-xl overflow-hidden border border-slate-200 bg-white"><img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-1.jpeg') }}" alt="Students participating in campus sports activity" /><figcaption class="p-3 text-sm">Intercollegiate Sports - 2025</figcaption></figure>
-        <figure data-filter-item="nss,2025" class="rounded-xl overflow-hidden border border-slate-200 bg-white"><img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-2.jpeg') }}" alt="NSS outreach activity by college students" /><figcaption class="p-3 text-sm">NSS Community Drive - 2025</figcaption></figure>
-        <figure data-filter-item="academic,2025" class="rounded-xl overflow-hidden border border-slate-200 bg-white"><img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-3.jpeg') }}" alt="Academic gathering at St. George's College" /><figcaption class="p-3 text-sm">Academic Gathering - 2025</figcaption></figure>
-        <figure data-filter-item="cultural,2026" class="rounded-xl overflow-hidden border border-slate-200 bg-white"><img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-4.jpeg') }}" alt="Students during campus cultural performance" /><figcaption class="p-3 text-sm">Cultural Fest Evening - 2026</figcaption></figure>
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <template x-for="item in items.filter(i => f === 'all' || i.category === f || i.year == f)" :key="`${item.title}-${item.year}`">
+          <figure class="rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+            <img class="h-52 w-full object-cover" loading="lazy" :src="item.image" :alt="item.title" />
+            <figcaption class="p-3 text-sm">
+              <span x-text="item.title"></span>
+            </figcaption>
+          </figure>
+        </template>
       </div>
     </section>
 

@@ -28,25 +28,29 @@ class DepartmentController extends Controller
 
     private function getDepartments(): Collection
     {
-        if (Schema::hasTable('departments')) {
-            $dbDepartments = Department::query()
-                ->orderBy('name')
-                ->get()
-                ->map(function (Department $department): array {
-                    return [
-                        'name' => $department->name,
-                        'slug' => $department->slug,
-                        'code' => $department->code,
-                        'programs' => $this->programsFor($department->name),
-                        'summary' => $department->about ?: 'Department information will be updated by admin.',
-                        'research_center' => (bool) $department->research_center,
-                        'established_year' => $department->established_year,
-                    ];
-                });
+        try {
+            if (Schema::hasTable('departments')) {
+                $dbDepartments = Department::query()
+                    ->orderBy('name')
+                    ->get()
+                    ->map(function (Department $department): array {
+                        return [
+                            'name' => $department->name,
+                            'slug' => $department->slug,
+                            'code' => $department->code,
+                            'programs' => $this->programsFor($department->name),
+                            'summary' => $department->about ?: 'Department information will be updated by admin.',
+                            'research_center' => (bool) $department->research_center,
+                            'established_year' => $department->established_year,
+                        ];
+                    });
 
-            if ($dbDepartments->isNotEmpty()) {
-                return $dbDepartments->values();
+                if ($dbDepartments->isNotEmpty()) {
+                    return $dbDepartments->values();
+                }
             }
+        } catch (\Throwable) {
+            return collect($this->fallbackDepartments());
         }
 
         return collect($this->fallbackDepartments());

@@ -38,6 +38,7 @@ Route::post('/admissions/apply', [AdmissionController::class, 'store'])->name('a
 Route::get('/admissions/status/{id?}', [AdmissionController::class, 'status'])->name('admissions.status');
 Route::get('/placements', [PlacementController::class, 'index'])->name('placements.index');
 Route::get('/notices', [NoticeController::class, 'index'])->name('notices.index');
+Route::get('/notices/{slug}', [NoticeController::class, 'view'])->name('notices.view');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/faculty', [FacultyController::class, 'index'])->name('faculty.index');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');

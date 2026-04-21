@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdmissionApplication;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AdmissionController extends Controller
 {
@@ -41,44 +43,55 @@ class AdmissionController extends Controller
             'doc_tc' => ['required', 'file', 'mimes:pdf', 'max:5120'],
             'doc_community' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
             'declaration_confirmed' => ['accepted'],
-            'captcha_confirmed' => ['accepted'],
         ]);
 
-        $applicationId = $this->generateApplicationId();
+        try {
+            $applicationId = $this->generateApplicationId();
 
-        $marksheetPath = $request->file('doc_marksheet')->store('admissions/documents', 'public');
-        $tcPath = $request->file('doc_tc')->store('admissions/documents', 'public');
-        $communityPath = $request->file('doc_community')
-            ? $request->file('doc_community')->store('admissions/documents', 'public')
-            : null;
+            $marksheetPath = $request->file('doc_marksheet')->store('admissions/documents', 'public');
+            $tcPath = $request->file('doc_tc')->store('admissions/documents', 'public');
+            $communityPath = $request->file('doc_community')
+                ? $request->file('doc_community')->store('admissions/documents', 'public')
+                : null;
 
-        AdmissionApplication::create([
-            'application_id' => $applicationId,
-            'full_name' => $validated['full_name'],
-            'dob' => $validated['dob'],
-            'gender' => $validated['gender'],
-            'category' => $validated['category'],
-            'religion' => $validated['religion'] ?? null,
-            'phone' => $validated['phone'],
-            'email' => $validated['email'],
-            'address' => $validated['address'],
-            'school' => $validated['school'],
-            'board' => $validated['board'],
-            'pass_year' => $validated['pass_year'],
-            'subject_combo' => $validated['subject_combo'],
-            'percentage' => $validated['percentage'],
-            'pref1' => $validated['pref1'],
-            'pref2' => $validated['pref2'],
-            'pref3' => $validated['pref3'],
-            'doc_marksheet_path' => $marksheetPath,
-            'doc_tc_path' => $tcPath,
-            'doc_community_path' => $communityPath,
-            'status' => 'pending',
-        ]);
+            AdmissionApplication::create([
+                'application_id' => $applicationId,
+                'full_name' => $validated['full_name'],
+                'dob' => $validated['dob'],
+                'gender' => $validated['gender'],
+                'category' => $validated['category'],
+                'religion' => $validated['religion'] ?? null,
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+                'address' => $validated['address'],
+                'school' => $validated['school'],
+                'board' => $validated['board'],
+                'pass_year' => $validated['pass_year'],
+                'subject_combo' => $validated['subject_combo'],
+                'percentage' => $validated['percentage'],
+                'pref1' => $validated['pref1'],
+                'pref2' => $validated['pref2'],
+                'pref3' => $validated['pref3'],
+                'doc_marksheet_path' => $marksheetPath,
+                'doc_tc_path' => $tcPath,
+                'doc_community_path' => $communityPath,
+                'status' => 'pending',
+            ]);
 
-        return redirect()
-            ->route('admissions.apply')
-            ->with('success', "Application submitted successfully. Your ID is {$applicationId}.");
+            return redirect()
+                ->route('admissions.apply')
+                ->with('success', "Application submitted successfully. Your ID is {$applicationId}.");
+        } catch (QueryException $exception) {
+            Log::error('Admission application database error', ['error' => $exception->getMessage()]);
+        } catch (\Throwable $exception) {
+            Log::error('Admission application submission failed', ['error' => $exception->getMessage()]);
+        }
+
+        return back()
+            ->withInput()
+            ->withErrors([
+                'application' => 'We could not submit your application right now. Please try again in a few minutes.',
+            ]);
     }
 
     public function status(Request $request, ?string $id = null)

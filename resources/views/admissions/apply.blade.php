@@ -70,7 +70,6 @@
 
       <section class="space-y-4">
         <label class="flex items-start gap-3 text-sm"><input type="checkbox" name="declaration_confirmed" value="1" @checked(old('declaration_confirmed')) required class="mt-1" /><span>I confirm that the information provided is correct and I agree to admission verification policies.</span></label>
-        <label class="flex items-start gap-3 text-sm"><input type="checkbox" name="captcha_confirmed" value="1" @checked(old('captcha_confirmed')) required class="mt-1" /><span>I have completed CAPTCHA verification (reCAPTCHA v3 integration placeholder).</span></label>
       </section>
 
       <div class="flex flex-wrap gap-3">

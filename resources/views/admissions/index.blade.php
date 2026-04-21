@@ -45,13 +45,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.Sc. Physics / Chemistry / Botany</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">~?6,970/year</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
-          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.A. Streams</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">~?6,970/year</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
-          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.Com</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">~?6,970/year</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
-          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">BCA</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">~?1,13,000 total</td><td data-label="Seat Type" class="py-3 pr-4">Self-Financed</td></tr>
-          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.Sc. Food Science & Technology</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">?21,840/year</td><td data-label="Seat Type" class="py-3 pr-4">Self-Financed</td></tr>
-          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">M.Sc. Chemistry / Physics / Food Science</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">As per aided/SF seat</td><td data-label="Seat Type" class="py-3 pr-4">Mixed</td></tr>
-          <tr><td data-label="Program" class="py-3 pr-4">M.Com / M.A. / Integrated M.A.</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">~?6,970/year</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
+          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.Sc. Physics / Chemistry / Botany</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">₹6,970/-</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
+          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.A. Streams</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">₹6,970/-</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
+          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.Com</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">₹6,970/-</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
+          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">BCA</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">₹1,13,000/-</td><td data-label="Seat Type" class="py-3 pr-4">Self-Financed</td></tr>
+          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">B.Sc. Food Science & Technology</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">₹21,840/-</td><td data-label="Seat Type" class="py-3 pr-4">Self-Financed</td></tr>
+          <tr class="border-b border-slate-100"><td data-label="Program" class="py-3 pr-4">M.Sc. Chemistry / Physics / Food Science</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">₹28,500/-</td><td data-label="Seat Type" class="py-3 pr-4">Mixed</td></tr>
+          <tr><td data-label="Program" class="py-3 pr-4">M.Com / M.A. / Integrated M.A.</td><td data-label="Annual Fee (Approx.)" class="py-3 pr-4">₹6,970/-</td><td data-label="Seat Type" class="py-3 pr-4">Aided</td></tr>
         </tbody>
       </table>
     </section>

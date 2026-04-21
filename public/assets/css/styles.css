@@ -1,7 +1,11 @@
 :root {
-  --sgc-navy: #1A3E6F;
-  --sgc-navy-dark: #122c50;
-  --sgc-gold: #B8860B;
+  --color-primary: #1A3A6B;
+  --color-secondary: #C49A22;
+  --color-bg: #f4f7fc;
+  --color-footer: #102748;
+  --sgc-navy: var(--color-primary);
+  --sgc-navy-dark: #102748;
+  --sgc-gold: var(--color-secondary);
   --sgc-cream: #f8f5ee;
   --sgc-text: #1f2937;
 }
@@ -9,7 +13,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   color: var(--sgc-text);
-  background: linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
 }
 
 h1,
@@ -63,6 +67,31 @@ h6,
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-block;
+  min-width: 100%;
+  padding-left: 100%;
+  animation: scroll 18s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
 
@@ -142,8 +171,8 @@ h6,
 }
 
 .nav-active {
-  color: var(--sgc-navy);
-  border-bottom: 2px solid var(--sgc-gold);
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
   padding-bottom: 0.25rem;
 }
 

@@ -2,6 +2,23 @@
 @section('title', 'Home')
 @section('content')
 @php
+  $testimonialSlides = collect($testimonials)
+      ->map(function (array $testimonial): array {
+          $initials = collect(explode(' ', $testimonial['name']))
+              ->filter()
+              ->map(fn (string $part) => \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($part, 0, 1)))
+              ->take(2)
+              ->implode('');
+
+          return [
+              'name' => $testimonial['name'],
+              'program' => $testimonial['program'],
+              'quote' => $testimonial['quote'],
+              'initials' => $initials,
+          ];
+      })
+      ->values();
+
   $fallbackHeroSlides = collect([
       [
           'image' => asset('assets/images/gallery/college-graduation-1.jpeg'),
@@ -83,9 +100,11 @@
       </div>
     </section>
 
-    <section class="bg-slate-950 text-white">
-      <div class="mx-auto max-w-7xl px-4 py-3 notice-ticker" aria-label="Latest notices ticker">
-        <div data-notice-ticker class="notice-ticker-track text-sm"></div>
+    <section class="bg-primary text-white py-2 marquee-container" aria-label="College marquee">
+      <div class="mx-auto max-w-7xl px-4">
+        <div class="marquee-track text-sm md:text-base font-medium">
+          Welcome to St. George's College | NAAC A++ | Admissions Open 2026 &nbsp; | &nbsp; Welcome to St. George's College | NAAC A++ | Admissions Open 2026
+        </div>
       </div>
     </section>
 
@@ -164,26 +183,60 @@
         <a href="{{ route('gallery.index') }}" class="text-sm font-semibold text-sgcNavy hover:text-sgcGold focus-ring">View Full Gallery</a>
       </div>
       <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <img class="rounded-xl h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-graduation-1.jpeg') }}" alt="Students during graduation at St. George's College" />
-        <img class="rounded-xl h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-graduation-2.jpeg') }}" alt="Campus celebration at St. George's College" />
-        <img class="rounded-xl h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-1.jpeg') }}" alt="Academic event at St. George's College" />
-        <img class="rounded-xl h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-2.jpeg') }}" alt="NSS and community engagement activity" />
-        <img class="rounded-xl h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-3.jpeg') }}" alt="Students at campus program" />
-        <img class="rounded-xl h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-4.jpeg') }}" alt="College cultural evening performance" />
+        <figure class="overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-graduation-1.jpeg') }}" alt="Students during graduation at St. George's College" />
+        </figure>
+        <figure class="overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-graduation-2.jpeg') }}" alt="Campus celebration at St. George's College" />
+        </figure>
+        <figure class="overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-1.jpeg') }}" alt="Academic event at St. George's College" />
+        </figure>
+        <figure class="overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-2.jpeg') }}" alt="NSS and community engagement activity" />
+        </figure>
+        <figure class="overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-3.jpeg') }}" alt="Students at campus program" />
+        </figure>
+        <figure class="overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+          <img class="h-52 w-full object-cover" loading="lazy" src="{{ asset('assets/images/gallery/college-event-4.jpeg') }}" alt="College cultural evening performance" />
+        </figure>
       </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-4 py-16">
+    <section
+      class="mx-auto max-w-7xl px-4 py-16"
+      x-data="{ current: 0, slides: {{ \Illuminate\Support\Js::from($testimonialSlides) }}, init() { setInterval(() => { this.current = (this.current - 1 + this.slides.length) % this.slides.length; }, 4500); } }"
+    >
       <h2 class="section-title font-heading text-3xl text-sgcNavy">Student Testimonials</h2>
       <p class="mt-4 text-sm text-slate-600">Experiences shared by students across departments.</p>
-      <div class="mt-8 grid md:grid-cols-3 gap-4">
-        @foreach($testimonials as $testimonial)
-          <article class="feature-card rounded-xl border border-slate-200 bg-white p-5">
-            <p class="text-sm text-slate-700">"{{ $testimonial['quote'] }}"</p>
-            <p class="mt-4 font-semibold text-slate-900">{{ $testimonial['name'] }}</p>
-            <p class="text-xs text-slate-500">{{ $testimonial['program'] }}</p>
+      <div class="mt-8 relative min-h-[220px]">
+        <template x-for="(slide, index) in slides" :key="index">
+          <article
+            x-show="current === index"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-x-8"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition ease-in duration-500"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-8"
+            class="feature-card rounded-xl border border-slate-200 bg-white p-6 shadow-md"
+          >
+            <div class="flex items-center gap-4">
+              <div class="h-12 w-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold" x-text="slide.initials"></div>
+              <div>
+                <p class="font-semibold text-slate-900" x-text="slide.name"></p>
+                <p class="text-xs text-slate-500" x-text="slide.program"></p>
+              </div>
+            </div>
+            <p class="mt-4 text-sm text-slate-700" x-text="`\\\"${slide.quote}\\\"`"></p>
           </article>
-        @endforeach
+        </template>
+        <div class="mt-5 flex gap-2">
+          <template x-for="(slide, index) in slides" :key="`dot-${index}`">
+            <button type="button" class="h-2.5 w-2.5 rounded-full transition" :class="current === index ? 'bg-blue-600' : 'bg-slate-300'" @click="current = index" :aria-label="`Show testimonial ${index + 1}`"></button>
+          </template>
+        </div>
       </div>
     </section>
 @endsection

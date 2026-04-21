@@ -16,19 +16,20 @@
         theme: {
           extend: {
             colors: {
-              sgcNavy: '#1A3E6F',
-              sgcGold: '#B8860B'
+              sgcPrimary: '#1A3A6B',
+              sgcGold: '#C49A22'
             }
           }
         }
       };
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
 </head>
 <body data-page="@yield('page', 'home')" class="bg-campus">
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 bg-white px-3 py-2 rounded-md">Skip to content</a>
   
-  <div class="text-white text-xs md:text-sm" style="background-color: var(--sgc-navy);">
+  <div class="text-white text-xs md:text-sm" style="background-color: var(--color-primary);">
     <div class="mx-auto max-w-7xl px-4 py-2 flex flex-wrap items-center justify-between gap-2">
       <p>Affiliated to Mahatma Gandhi University, Kottayam | NAAC A++ Accredited</p>
       <div class="flex items-center gap-4">
@@ -42,26 +43,26 @@
       <a href="{{ url('/') }}" class="flex items-center gap-3 focus-ring">
         <img src="{{ asset('assets/images/brand/college-logo.png') }}" alt="St. George's College logo" class="h-12 w-12 rounded-full object-cover border border-slate-200" loading="eager" />
         <div>
-          <p class="font-heading text-lg leading-tight" style="color: var(--sgc-navy);">St. George's College Aruvithura</p>
+          <p class="font-heading text-lg leading-tight" style="color: var(--color-primary);">St. George's College Aruvithura</p>
           <p class="text-xs text-slate-500">Since 1965 | Erattupetta, Kerala</p>
         </div>
       </a>
       <button id="mobile-menu-btn" class="md:hidden px-3 py-2 border border-slate-300 rounded-lg focus-ring" aria-controls="site-nav" aria-expanded="false">Menu</button>
       <nav id="site-nav" class="hidden md:flex items-center gap-5 text-sm font-medium" aria-label="Primary">
-        <a href="{{ url('/') }}" class="focus-ring {{ request()->is('/') ? 'nav-active' : 'nav-link' }}">Home</a>
-        <a href="{{ url('/about') }}" class="focus-ring {{ request()->is('about') ? 'nav-active' : 'nav-link' }}">About</a>
-        <a href="{{ url('/academics') }}" class="focus-ring {{ request()->is('academics*') ? 'nav-active' : 'nav-link' }}">Academics</a>
-        <a href="{{ url('/departments') }}" class="focus-ring {{ request()->is('departments*') ? 'nav-active' : 'nav-link' }}">Departments</a>
-        <a href="{{ url('/admissions') }}" class="focus-ring {{ request()->is('admissions*') ? 'nav-active' : 'nav-link' }}">Admissions</a>
-        <a href="{{ url('/placements') }}" class="focus-ring {{ request()->is('placements*') ? 'nav-active' : 'nav-link' }}">Placements</a>
-        <a href="{{ url('/facilities') }}" class="focus-ring {{ request()->is('facilities') ? 'nav-active' : 'nav-link' }}">Facilities</a>
-        <a href="{{ url('/notices') }}" class="focus-ring {{ request()->is('notices*') ? 'nav-active' : 'nav-link' }}">Notices</a>
-        <a href="{{ url('/gallery') }}" class="focus-ring {{ request()->is('gallery*') ? 'nav-active' : 'nav-link' }}">Gallery</a>
-        <a href="{{ url('/contact') }}" class="focus-ring {{ request()->is('contact') ? 'nav-active' : 'nav-link' }}">Contact</a>
+        <a href="{{ route('home') }}" class="focus-ring nav-link {{ request()->routeIs('home') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Home</a>
+        <a href="{{ route('about') }}" class="focus-ring nav-link {{ request()->routeIs('about') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">About</a>
+        <a href="{{ route('academics.index') }}" class="focus-ring nav-link {{ request()->routeIs('academics.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Academics</a>
+        <a href="{{ route('departments.index') }}" class="focus-ring nav-link {{ request()->routeIs('departments.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Departments</a>
+        <a href="{{ route('admissions.index') }}" class="focus-ring nav-link {{ request()->routeIs('admissions.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Admissions</a>
+        <a href="{{ route('placements.index') }}" class="focus-ring nav-link {{ request()->routeIs('placements.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Placements</a>
+        <a href="{{ route('facilities') }}" class="focus-ring nav-link {{ request()->routeIs('facilities') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Facilities</a>
+        <a href="{{ route('notices.index') }}" class="focus-ring nav-link {{ request()->routeIs('notices.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Notices</a>
+        <a href="{{ route('gallery.index') }}" class="focus-ring nav-link {{ request()->routeIs('gallery.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Gallery</a>
+        <a href="{{ route('contact.index') }}" class="focus-ring nav-link {{ request()->routeIs('contact.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Contact</a>
         @guest
-          <a href="{{ route('login') }}" class="focus-ring {{ request()->is('login') ? 'nav-active' : 'nav-link' }}">Login</a>
+          <a href="{{ route('login') }}" class="focus-ring nav-link {{ request()->routeIs('login') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Login</a>
         @else
-          <a href="{{ route('dashboard') }}" class="focus-ring {{ request()->is('dashboard') ? 'nav-active' : 'nav-link' }}">Dashboard</a>
+          <a href="{{ route('dashboard') }}" class="focus-ring nav-link {{ request()->routeIs('dashboard') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Dashboard</a>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="focus-ring nav-link">Logout</button>
@@ -72,20 +73,20 @@
     </div>
     <nav id="mobile-nav-panel" class="md:hidden hidden border-t border-slate-200 px-4 py-3 bg-white" aria-label="Mobile Primary">
       <div class="grid gap-2 text-sm">
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/') }}">Home</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/about') }}">About</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/academics') }}">Academics</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/departments') }}">Departments</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/admissions') }}">Admissions</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/placements') }}">Placements</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/facilities') }}">Facilities</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/notices') }}">Notices</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/gallery') }}">Gallery</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/contact') }}">Contact</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('home') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('home') }}">Home</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('about') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('about') }}">About</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('academics.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('academics.index') }}">Academics</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('departments.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('departments.index') }}">Departments</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('admissions.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('admissions.index') }}">Admissions</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('placements.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('placements.index') }}">Placements</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('facilities') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('facilities') }}">Facilities</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('notices.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('notices.index') }}">Notices</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('gallery.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('gallery.index') }}">Gallery</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('contact.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('contact.index') }}">Contact</a>
         @guest
-          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ route('login') }}">Login</a>
+          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('login') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('login') }}">Login</a>
         @else
-          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ route('dashboard') }}">Dashboard</a>
+          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('dashboard') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="w-full text-left px-2 py-2 rounded hover:bg-slate-100 focus-ring">Logout</button>
@@ -100,45 +101,45 @@
     @yield('content')
   </main>
 
-  <footer class="text-slate-100 mt-16" style="background-color: var(--sgc-navy);">
+  <footer class="mt-16 text-white" style="background-color: var(--color-footer);">
     <div class="mx-auto max-w-7xl px-4 py-12 grid md:grid-cols-4 gap-8">
       <div>
-        <h3 class="font-heading text-xl mb-3">St. George's College Aruvithura</h3>
-        <p class="text-sm leading-relaxed">Government-aided minority institution established in 1965, serving 2,100+ students with NAAC A++ excellence.</p>
+        <h3 class="font-heading text-xl mb-3 text-white">St. George's College Aruvithura</h3>
+        <p class="text-sm leading-relaxed text-white/90">Government-aided minority institution established in 1965, serving 2,100+ students with NAAC A++ excellence.</p>
       </div>
       <div>
-        <h4 class="font-semibold mb-3 text-amber-300">Quick Links</h4>
-        <ul class="space-y-2 text-sm">
-          <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/admissions') }}">Admissions</a></li>
-          <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/academics') }}">Programs & Syllabus</a></li>
-          <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/notices') }}">Notices & Events</a></li>
-          <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/contact') }}">Contact Directory</a></li>
+        <h4 class="font-semibold mb-3 text-[var(--color-secondary)]">Quick Links</h4>
+        <ul class="space-y-2 text-sm text-white/90">
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/admissions') }}">Admissions</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/academics') }}">Programs & Syllabus</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/notices') }}">Notices & Events</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/contact') }}">Contact Directory</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold mb-3 text-amber-300">Portals</h4>
-        <ul class="space-y-2 text-sm">
+        <h4 class="font-semibold mb-3 text-[var(--color-secondary)]">Portals</h4>
+        <ul class="space-y-2 text-sm text-white/90">
           @auth
             @if(auth()->user()->role === 'student')
-              <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/student/dashboard') }}">Student Portal</a></li>
+              <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/student/dashboard') }}">Student Portal</a></li>
             @elseif(auth()->user()->role === 'faculty')
-              <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/faculty-portal/dashboard') }}">Faculty Portal</a></li>
+              <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/faculty-portal/dashboard') }}">Faculty Portal</a></li>
             @else
-              <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/login') }}">Login Portal</a></li>
+              <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/admin/dashboard') }}">Admin Dashboard</a></li>
             @endif
           @else
-            <li><a class="hover:text-amber-300 focus-ring" href="{{ url('/login') }}">Login Portal</a></li>
+            <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('admissions.apply') }}">Apply Online</a></li>
           @endauth
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold mb-3 text-amber-300">Contact</h4>
-        <p class="text-sm">Aruvithura, Erattupetta, Kottayam District, Kerala 686122</p>
-        <p class="text-sm mt-2">Phone: +91 4822 273 235</p>
-        <p class="text-sm">Email: <a class="underline hover:text-amber-300 focus-ring" href="mailto:info@sgcaruvithura.ac.in">info@sgcaruvithura.ac.in</a></p>
+        <h4 class="font-semibold mb-3 text-[var(--color-secondary)]">Contact</h4>
+        <p class="text-sm text-white/90">Aruvithura, Erattupetta, Kottayam District, Kerala 686122</p>
+        <p class="text-sm mt-2 text-white/90">Phone: +91 4822 273 235</p>
+        <p class="text-sm text-white/90">Email: <a class="underline hover:text-[var(--color-secondary)] focus-ring" href="mailto:info@sgcaruvithura.ac.in">info@sgcaruvithura.ac.in</a></p>
       </div>
     </div>
-    <div class="border-t border-white/20 py-4 text-center text-xs text-slate-300">
+    <div class="border-t border-white/20 py-4 text-center text-xs text-white/75">
       <p>&copy; <span id="year"></span> {{ config('app.name') }}. All rights reserved.</p>
     </div>
   </footer>
