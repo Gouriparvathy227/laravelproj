@@ -3,6 +3,24 @@
 use Illuminate\Support\Str;
 use Pdo\Mysql;
 
+$databaseUrl = env('DB_URL');
+$parsedDatabaseUrl = [];
+
+if (is_string($databaseUrl) && $databaseUrl !== '') {
+    $parsed = parse_url($databaseUrl);
+
+    if (is_array($parsed)) {
+        $parsedDatabaseUrl = array_map(
+            static fn ($value) => is_string($value) ? rawurldecode($value) : $value,
+            $parsed
+        );
+    }
+}
+
+$databaseFromUrl = isset($parsedDatabaseUrl['path']) && $parsedDatabaseUrl['path'] !== '/'
+    ? ltrim((string) $parsedDatabaseUrl['path'], '/')
+    : null;
+
 return [
 
     /*
@@ -86,12 +104,12 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'url' => env('DB_PGSQL_URL'),
+            'host' => env('DB_HOST', $parsedDatabaseUrl['host'] ?? '127.0.0.1'),
+            'port' => env('DB_PORT', (string) ($parsedDatabaseUrl['port'] ?? '5432')),
+            'database' => env('DB_DATABASE', $databaseFromUrl ?? 'laravel'),
+            'username' => env('DB_USERNAME', $parsedDatabaseUrl['user'] ?? 'root'),
+            'password' => env('DB_PASSWORD', $parsedDatabaseUrl['pass'] ?? ''),
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
