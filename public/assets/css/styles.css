@@ -14,6 +14,11 @@
   --color-text-soft: #4B5563;
   --shadow-soft: 0 14px 34px rgba(15, 34, 64, 0.1);
   --shadow-hover: 0 20px 44px rgba(15, 34, 64, 0.16);
+  --card-gradient-a: linear-gradient(145deg, #ffffff 0%, #f2f7ff 48%, #eefcf9 100%);
+  --card-gradient-b: linear-gradient(145deg, #fff7ef 0%, #ffe7f0 50%, #ffe3d1 100%);
+  --card-gradient-c: linear-gradient(145deg, #151f35 0%, #1f2d4d 52%, #243866 100%);
+  --card-gradient-d: linear-gradient(145deg, #fdf6ec 0%, #f5ece0 100%);
+  --card-border-strong: rgba(27, 58, 107, 0.22);
   --color-highlight: var(--color-secondary);
   --color-footer: var(--color-footer-bg);
   --sgc-navy: var(--color-primary);
@@ -204,19 +209,32 @@ h6,
 .stat-card,
 .feature-card,
 .panel-card {
-  background: linear-gradient(150deg, color-mix(in srgb, var(--color-surface) 94%, #ffffff 6%), color-mix(in srgb, var(--color-surface-soft) 86%, var(--color-surface) 14%));
-  border: 1px solid var(--color-border-soft);
-  border-radius: 1rem;
+  background: var(--card-gradient-a);
+  border: 1px solid var(--card-border-strong);
+  border-radius: 1.05rem;
   box-shadow: var(--shadow-soft);
-  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease, filter 0.26s ease;
 }
 
 .stat-card:hover,
 .feature-card:hover,
 .panel-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-  border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border-soft) 60%);
+  box-shadow: var(--shadow-hover), 0 0 0 1px rgba(22, 160, 133, 0.2);
+  border-color: rgba(22, 160, 133, 0.5);
+  filter: saturate(1.05);
+}
+
+.feature-card:nth-of-type(3n + 2),
+.stat-card:nth-of-type(3n + 2),
+.panel-card:nth-of-type(3n + 2) {
+  background: var(--card-gradient-b);
+}
+
+.feature-card:nth-of-type(3n + 3),
+.stat-card:nth-of-type(3n + 3),
+.panel-card:nth-of-type(3n + 3) {
+  background: var(--card-gradient-d);
 }
 
 .focus-ring:focus-visible {
@@ -252,11 +270,22 @@ main section > aside[class*='rounded'],
 main section[class*='rounded'],
 main div[class*='rounded-2xl bg-white'],
 main div[class*='rounded-xl bg-white'] {
-  background: linear-gradient(145deg, color-mix(in srgb, var(--color-surface) 95%, #ffffff 5%), color-mix(in srgb, var(--color-surface-soft) 90%, var(--color-surface) 10%));
-  border-color: var(--color-border-soft);
-  box-shadow: var(--shadow-soft);
+  background: var(--card-gradient-a);
+  border-color: var(--card-border-strong);
+  box-shadow: var(--shadow-soft), 0 1px 0 rgba(255, 255, 255, 0.85) inset;
   backdrop-filter: blur(10px);
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+}
+
+main > header[class*='rounded']:hover,
+main section > article[class*='rounded']:hover,
+main section > aside[class*='rounded']:hover,
+main section[class*='rounded']:hover,
+main div[class*='rounded-2xl bg-white']:hover,
+main div[class*='rounded-xl bg-white']:hover {
+  transform: translateY(-3px);
+  border-color: rgba(22, 160, 133, 0.45);
+  box-shadow: var(--shadow-hover), 0 0 0 1px rgba(22, 160, 133, 0.18);
 }
 
 main figure img,
@@ -389,6 +418,59 @@ main aside:hover img {
   font-weight: 600;
 }
 
+/* Reusable premium card classes */
+.card-premium {
+  background: var(--card-gradient-a);
+  color: #1f2937;
+  border: 1px solid var(--card-border-strong);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+
+.card-premium:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-hover), 0 0 0 1px rgba(22, 160, 133, 0.18);
+  border-color: rgba(22, 160, 133, 0.5);
+}
+
+.card-gradient {
+  background: var(--card-gradient-b);
+  color: #22201d;
+}
+
+.card-dark {
+  background: var(--card-gradient-c);
+  color: #f7f9ff;
+  border-color: rgba(200, 149, 42, 0.35);
+  box-shadow: 0 18px 38px rgba(8, 15, 28, 0.38);
+}
+
+.card-dark .card-title,
+.card-dark .card-text {
+  color: #f7f9ff;
+}
+
+.card-nude {
+  background: var(--card-gradient-d);
+  color: #2e2923;
+  border-color: rgba(200, 149, 42, 0.35);
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 0.55rem;
+}
+
+.card-text {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: #334155;
+}
+
 main .text-slate-900,
 main .text-slate-800,
 main .text-slate-700,
@@ -429,14 +511,12 @@ a[class*='rounded']:hover {
 }
 
 .reveal-on-scroll {
-  opacity: 1;
   transform: translate(0, 0);
-  will-change: transform, opacity;
+  will-change: transform;
 }
 
 body.motion-enabled .reveal-on-scroll {
-  opacity: 0;
-  transition: transform 0.62s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.62s ease;
+  transition: transform 0.62s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 body.motion-enabled .reveal-left {
@@ -452,7 +532,6 @@ body.motion-enabled .reveal-bottom {
 }
 
 body.motion-enabled .reveal-on-scroll.is-visible {
-  opacity: 1;
   transform: translate(0, 0);
 }
 
@@ -469,7 +548,6 @@ body.motion-enabled .reveal-on-scroll.is-visible {
   body.page-enter.page-ready,
   body.page-exit,
   .reveal-on-scroll {
-    opacity: 1 !important;
     transform: none !important;
   }
 }
