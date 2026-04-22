@@ -28,7 +28,7 @@
 </head>
 <body data-page="@yield('page', 'home')" class="bg-campus">
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 bg-white px-3 py-2 rounded-md">Skip to content</a>
-  <div class="min-h-screen w-full overflow-x-hidden">
+  <div class="min-h-screen w-full">
   <div class="text-white text-xs md:text-sm" style="background-color: var(--color-primary);">
     <div class="mx-auto max-w-7xl px-4 py-2 flex flex-wrap items-center justify-between gap-2">
       <p>Affiliated to Mahatma Gandhi University, Kottayam | NAAC A++ Accredited</p>
@@ -97,7 +97,7 @@
     </nav>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" class="relative">
     @yield('content')
   </main>
 
