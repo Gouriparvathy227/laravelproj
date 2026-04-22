@@ -254,7 +254,7 @@ const initPageTransitions = () => {
       document.body.classList.add('page-exit');
       setTimeout(() => {
         window.location.href = href;
-      }, 220);
+      }, 180);
     });
   });
 };

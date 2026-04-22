@@ -1,20 +1,22 @@
 :root {
-  --theme-name: nude;
-  --color-primary: #5c4634;
-  --color-secondary: #b88b5b;
-  --color-bg: #f5eee6;
-  --color-footer: #33261d;
-  --color-surface: #fffaf3;
-  --color-surface-soft: #f4ece3;
-  --color-border-soft: rgba(67, 48, 33, 0.18);
-  --color-text: #1f1a17;
-  --color-text-soft: #4f463f;
-  --shadow-soft: 0 14px 34px rgba(48, 34, 24, 0.12);
-  --shadow-hover: 0 20px 44px rgba(34, 24, 16, 0.2);
+  --theme-name: study-light;
+  --color-primary: #324872;
+  --color-secondary: #00b9f2;
+  --color-highlight: #fcda2e;
+  --color-accent: #f37058;
+  --color-bg: #f5f5f6;
+  --color-footer: #231f20;
+  --color-surface: #ffffff;
+  --color-surface-soft: #e5f8fe;
+  --color-border-soft: rgba(35, 31, 32, 0.14);
+  --color-text: #231f20;
+  --color-text-soft: #575455;
+  --shadow-soft: 0 14px 34px rgba(35, 31, 32, 0.09);
+  --shadow-hover: 0 20px 44px rgba(35, 31, 32, 0.14);
   --sgc-navy: var(--color-primary);
-  --sgc-navy-dark: #3f3023;
+  --sgc-navy-dark: #1f2f4b;
   --sgc-gold: var(--color-secondary);
-  --sgc-cream: #f8f1e8;
+  --sgc-cream: #f5f5f5;
   --sgc-text: var(--color-text);
 }
 
@@ -49,9 +51,9 @@ body {
 body {
   font-family: 'Roboto', sans-serif;
   color: var(--color-text);
-  background: radial-gradient(circle at 10% 8%, color-mix(in srgb, var(--color-secondary) 20%, transparent), transparent 35%),
-    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 32%),
-    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 88%, #ffffff 12%) 0%, var(--color-bg) 100%);
+  background: radial-gradient(circle at 12% 6%, color-mix(in srgb, var(--color-secondary) 22%, transparent), transparent 34%),
+    radial-gradient(circle at 84% 0%, color-mix(in srgb, var(--color-highlight) 24%, transparent), transparent 30%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 90%, #ffffff 10%) 0%, var(--color-bg) 100%);
   overflow-y: auto;
   overscroll-behavior-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -59,12 +61,12 @@ body {
   line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 body.page-enter {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(8px);
 }
 
 body.page-enter.page-ready {
@@ -74,7 +76,7 @@ body.page-enter.page-ready {
 
 body.page-exit {
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
 
 p,
@@ -117,12 +119,12 @@ h6,
   width: 72px;
   height: 4px;
   border-radius: 999px;
-  background: var(--sgc-gold);
+  background: var(--color-highlight);
 }
 
 .site-topbar {
   color: color-mix(in srgb, var(--color-text) 14%, #ffffff 86%);
-  background: linear-gradient(120deg, color-mix(in srgb, var(--color-primary) 74%, #000000 26%), color-mix(in srgb, var(--color-primary) 54%, var(--color-secondary) 46%));
+  background: linear-gradient(120deg, color-mix(in srgb, var(--color-primary) 74%, #000000 26%), color-mix(in srgb, var(--color-secondary) 54%, var(--color-primary) 46%));
 }
 
 .site-header {
@@ -175,7 +177,7 @@ h6,
 
 .theme-toggle-btn:hover {
   border-color: color-mix(in srgb, var(--color-primary) 42%, var(--color-border-soft) 58%);
-  background: color-mix(in srgb, var(--color-surface-soft) 70%, var(--color-primary) 30%);
+  background: color-mix(in srgb, var(--color-surface-soft) 70%, var(--color-secondary) 30%);
 }
 
 .notice-ticker {
@@ -240,7 +242,7 @@ h6,
 .stat-card:hover,
 .feature-card:hover,
 .panel-card:hover {
-  transform: translateY(-6px) scale(1.01);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
   border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border-soft) 60%);
 }
@@ -362,16 +364,16 @@ main aside:hover img {
 .nav-apply {
   margin-left: 0.5rem;
   border-radius: 0.5rem;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--color-secondary) 85%, #ffffff 15%), color-mix(in srgb, var(--color-secondary) 60%, var(--color-primary) 40%));
+  background: linear-gradient(140deg, color-mix(in srgb, var(--color-highlight) 90%, #ffffff 10%), color-mix(in srgb, var(--color-highlight) 72%, var(--color-accent) 28%));
   padding: 0.5rem 0.75rem;
-  color: #fffdf8;
+  color: #231f20;
   transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
 }
 
 .nav-apply:hover {
-  background: linear-gradient(140deg, color-mix(in srgb, var(--color-secondary) 70%, var(--color-primary) 30%), color-mix(in srgb, var(--color-primary) 60%, #000000 40%));
+  background: linear-gradient(140deg, color-mix(in srgb, var(--color-highlight) 78%, var(--color-accent) 22%), color-mix(in srgb, var(--color-accent) 70%, var(--color-highlight) 30%));
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--color-secondary) 40%, transparent);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--color-accent) 38%, transparent);
 }
 
 .status-box {
@@ -477,19 +479,19 @@ a[class*='rounded']:hover {
 
 body.motion-enabled .reveal-on-scroll {
   opacity: 0;
-  transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.75s ease;
+  transition: transform 0.62s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.62s ease;
 }
 
 body.motion-enabled .reveal-left {
-  transform: translateX(-34px);
+  transform: translateX(-20px);
 }
 
 body.motion-enabled .reveal-right {
-  transform: translateX(34px);
+  transform: translateX(20px);
 }
 
 body.motion-enabled .reveal-bottom {
-  transform: translateY(34px);
+  transform: translateY(20px);
 }
 
 body.motion-enabled .reveal-on-scroll.is-visible {
