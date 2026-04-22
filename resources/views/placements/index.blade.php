@@ -16,14 +16,18 @@
     <section class="mt-8 rounded-2xl bg-white border border-slate-200 p-7">
       <h2 class="section-title font-heading text-3xl text-sgcNavy">Recruiters</h2>
       <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-center">
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/tcs.svg') }}" alt="TCS logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">TCS</figcaption></figure>
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/infosys.svg') }}" alt="Infosys logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">Infosys</figcaption></figure>
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/wipro.svg') }}" alt="Wipro logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">Wipro</figcaption></figure>
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/cognizant.svg') }}" alt="Cognizant logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">Cognizant</figcaption></figure>
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/hcltech.svg') }}" alt="HCLTech logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">HCL Technologies</figcaption></figure>
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/deloitte.svg') }}" alt="Deloitte logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">Deloitte</figcaption></figure>
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/capgemini.svg') }}" alt="Capgemini logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">Capgemini</figcaption></figure>
-        <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50"><img loading="lazy" src="{{ asset('assets/images/recruiters/southindianbank.svg') }}" alt="South Indian Bank logo" class="h-16 w-full object-contain" /><figcaption class="mt-3 font-semibold text-slate-700">South Indian Bank</figcaption></figure>
+        @foreach($companies as $company)
+          <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50">
+            <img
+              loading="lazy"
+              src="https://logo.clearbit.com/{{ $company['domain'] }}"
+              onerror="this.onerror=null;this.src='{{ asset('assets/images/company-placeholder.png') }}';"
+              alt="{{ $company['name'] }} logo"
+              class="h-10 w-full object-contain"
+            />
+            <figcaption class="mt-3 font-semibold text-slate-700">{{ $company['name'] }}</figcaption>
+          </figure>
+        @endforeach
       </div>
     </section>
 

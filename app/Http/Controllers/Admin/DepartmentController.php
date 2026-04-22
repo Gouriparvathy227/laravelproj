@@ -13,13 +13,21 @@ class DepartmentController extends Controller
 {
     public function index(): View
     {
-        $tableExists = Schema::hasTable('departments');
+        try {
+            $tableExists = Schema::hasTable('departments');
+            $departments = $tableExists
+                ? Department::latest()->get()
+                : collect();
 
-        $departments = $tableExists
-            ? Department::query()->orderBy('name')->get()
-            : collect();
+            return view('admin.departments.index', compact('departments', 'tableExists'));
+        } catch (\Throwable $exception) {
+            report($exception);
 
-        return view('admin.departments.index', compact('departments', 'tableExists'));
+            return view('admin.departments.index', [
+                'departments' => collect(),
+                'tableExists' => Schema::hasTable('departments'),
+            ])->with('error', 'Unable to load departments right now.');
+        }
     }
 
     public function store(Request $request): RedirectResponse

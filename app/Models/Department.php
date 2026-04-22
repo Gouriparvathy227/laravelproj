@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Department extends Model
@@ -24,5 +25,10 @@ class Department extends Model
     public function getSlugAttribute(): string
     {
         return Str::slug((string) $this->name);
+    }
+
+    public function facultyProfiles(): HasMany
+    {
+        return $this->hasMany(FacultyProfile::class, 'department_id');
     }
 }

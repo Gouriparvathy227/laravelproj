@@ -28,7 +28,7 @@
 </head>
 <body data-page="@yield('page', 'home')" class="bg-campus">
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 bg-white px-3 py-2 rounded-md">Skip to content</a>
-  
+  <div class="min-h-screen w-full overflow-x-hidden">
   <div class="text-white text-xs md:text-sm" style="background-color: var(--color-primary);">
     <div class="mx-auto max-w-7xl px-4 py-2 flex flex-wrap items-center justify-between gap-2">
       <p>Affiliated to Mahatma Gandhi University, Kottayam | NAAC A++ Accredited</p>
@@ -109,11 +109,22 @@
       </div>
       <div>
         <h4 class="font-semibold mb-3 text-[var(--color-secondary)]">Quick Links</h4>
-        <ul class="space-y-2 text-sm text-white/90">
-          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/admissions') }}">Admissions</a></li>
-          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/academics') }}">Programs & Syllabus</a></li>
-          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/notices') }}">Notices & Events</a></li>
-          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/contact') }}">Contact Directory</a></li>
+        <ul class="columns-2 space-y-1 text-sm text-white/90">
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('home') }}">Home</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('about') }}">About</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('departments.index') }}">Departments</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('admissions.index') }}">Admissions</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('faculty.index') }}">Faculty</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('gallery.index') }}">Gallery</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('placements.index') }}">Placements</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('notices.index') }}">Notices</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('contact.index') }}">Contact</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('student-life') }}">Student Life</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('facilities') }}">Facilities</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('history') }}">History</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('login') }}#admin">Admin Login</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('login') }}#faculty">Faculty Login</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('login') }}#student">Student Login</a></li>
         </ul>
       </div>
       <div>
@@ -123,7 +134,7 @@
             @if(auth()->user()->role === 'student')
               <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/student/dashboard') }}">Student Portal</a></li>
             @elseif(auth()->user()->role === 'faculty')
-              <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/faculty-portal/dashboard') }}">Faculty Portal</a></li>
+              <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ url('/faculty/dashboard') }}">Faculty Portal</a></li>
             @else
               <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('dashboard') }}">Dashboard</a></li>
             @endif
@@ -145,5 +156,6 @@
   </footer>
 
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  </div>
 </body>
 </html>

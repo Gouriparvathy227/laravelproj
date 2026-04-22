@@ -12,6 +12,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('error'))
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
 
             @if (!empty($tableExists) && !$tableExists)
                 <div class="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded">
@@ -34,6 +39,15 @@
                     <div>
                         <label class="text-sm font-medium text-gray-700">Department</label>
                         <input name="department" class="mt-1 w-full rounded border-gray-300" required />
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-700">Department Record</label>
+                        <select name="department_id" class="mt-1 w-full rounded border-gray-300">
+                            <option value="">Select Department</option>
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div>
                         <label class="text-sm font-medium text-gray-700">Qualification</label>
@@ -70,6 +84,12 @@
                         </label>
                     </div>
                     <div class="md:col-span-2">
+                        <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                            <input type="checkbox" name="is_hod" value="1" />
+                            Mark as HOD
+                        </label>
+                    </div>
+                    <div class="md:col-span-2">
                         <button class="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">Save Faculty Profile</button>
                     </div>
                 </form>
@@ -78,7 +98,7 @@
             <div class="bg-white shadow-sm rounded-lg p-6">
                 <h3 class="font-semibold text-lg text-gray-900">Existing Faculty Profiles</h3>
                 <div class="mt-4 space-y-4">
-                    @forelse ($facultyMembers as $member)
+                    @forelse ($faculties as $member)
                         <div class="border rounded-lg p-4">
                             <form method="POST" action="{{ route('admin.faculty.update', $member) }}" enctype="multipart/form-data" class="grid md:grid-cols-2 gap-3">
                                 @csrf
@@ -94,6 +114,15 @@
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Department</label>
                                     <input name="department" value="{{ $member->department }}" class="mt-1 w-full rounded border-gray-300" required />
+                                </div>
+                                <div>
+                                    <label class="text-xs font-medium text-gray-600">Department Record</label>
+                                    <select name="department_id" class="mt-1 w-full rounded border-gray-300">
+                                        <option value="">Select Department</option>
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}" @selected((int) $member->department_id === (int) $department->id)>{{ $department->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Qualification</label>
@@ -127,6 +156,12 @@
                                     <label class="inline-flex items-center gap-2 text-sm text-gray-700">
                                         <input type="checkbox" name="is_active" value="1" {{ $member->is_active ? 'checked' : '' }} />
                                         Active on public website
+                                    </label>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                                        <input type="checkbox" name="is_hod" value="1" {{ $member->is_hod ? 'checked' : '' }} />
+                                        Mark as HOD
                                     </label>
                                 </div>
                                 <div class="md:col-span-2">

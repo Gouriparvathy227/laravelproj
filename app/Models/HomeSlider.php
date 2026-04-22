@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Builder;
 class HomeSlider extends Model
 {
     protected $fillable = [
-        'title',
-        'caption',
         'image_path',
+        'title',
+        'subtitle',
+        'caption',
         'alt_text',
+        'order',
         'display_order',
         'is_active',
         'uploaded_by',

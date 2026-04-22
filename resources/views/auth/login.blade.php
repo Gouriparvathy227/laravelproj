@@ -3,6 +3,12 @@
 
     <form method="POST" action="{{ route('login') }}" class="space-y-4">
         @csrf
+        <div class="flex rounded-lg overflow-hidden border mb-6" id="role-tabs">
+            <button type="button" data-role="admin" onclick="setRole('admin')" class="flex-1 py-2 text-sm role-tab">Admin</button>
+            <button type="button" data-role="faculty" onclick="setRole('faculty')" class="flex-1 py-2 text-sm role-tab">Faculty</button>
+            <button type="button" data-role="student" onclick="setRole('student')" class="flex-1 py-2 text-sm role-tab">Student</button>
+        </div>
+        <input type="hidden" name="login_role" id="login_role" value="{{ old('login_role', 'admin') }}">
 
         <div>
             <x-input-label for="email" :value="__('Email')" class="text-slate-700" />
@@ -49,4 +55,31 @@
             {{ __('Log in') }}
         </button>
     </form>
+
+    <script>
+        function setRole(role) {
+            var input = document.getElementById('login_role');
+            if (!input) return;
+            input.value = role;
+
+            var tabs = document.querySelectorAll('.role-tab');
+            tabs.forEach(function (tab) {
+                if (tab.dataset.role === role) {
+                    tab.classList.add('bg-blue-700', 'text-white');
+                    tab.classList.remove('bg-gray-100', 'text-slate-700');
+                } else {
+                    tab.classList.remove('bg-blue-700', 'text-white');
+                    tab.classList.add('bg-gray-100', 'text-slate-700');
+                }
+            });
+        }
+
+        (function initRoleTabs() {
+            var hashRole = window.location.hash ? window.location.hash.replace('#', '') : '';
+            var role = ['admin', 'faculty', 'student'].includes(hashRole)
+                ? hashRole
+                : (document.getElementById('login_role')?.value || 'admin');
+            setRole(role);
+        })();
+    </script>
 </x-guest-layout>

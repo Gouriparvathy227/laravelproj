@@ -12,6 +12,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('error'))
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
 
             @if (!empty($tableExists) && !$tableExists)
                 <div class="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded">
@@ -54,46 +59,46 @@
             <div class="bg-white shadow-sm rounded-lg p-6">
                 <h3 class="font-semibold text-lg text-gray-900">Existing Departments</h3>
                 <div class="mt-4 space-y-4">
-                    @forelse ($departments as $department)
+                    @forelse ($departments as $dept)
                         <div class="border rounded-lg p-4">
-                            <form method="POST" action="{{ route('admin.departments.update', $department) }}" class="grid md:grid-cols-2 gap-3">
+                            <form method="POST" action="{{ route('admin.departments.update', $dept) }}" class="grid md:grid-cols-2 gap-3">
                                 @csrf
                                 @method('PATCH')
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Name</label>
-                                    <input name="name" value="{{ $department->name }}" class="mt-1 w-full rounded border-gray-300" required />
+                                    <input name="name" value="{{ $dept->name }}" class="mt-1 w-full rounded border-gray-300" required />
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Code</label>
-                                    <input name="code" value="{{ $department->code }}" class="mt-1 w-full rounded border-gray-300" required />
+                                    <input name="code" value="{{ $dept->code }}" class="mt-1 w-full rounded border-gray-300" required />
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Established Year</label>
-                                    <input name="established_year" type="number" value="{{ $department->established_year }}" class="mt-1 w-full rounded border-gray-300" />
+                                    <input name="established_year" type="number" value="{{ $dept->established_year }}" class="mt-1 w-full rounded border-gray-300" />
                                 </div>
                                 <div class="flex items-end">
                                     <label class="inline-flex items-center gap-2 text-sm text-gray-700">
-                                        <input type="checkbox" name="research_center" value="1" {{ $department->research_center ? 'checked' : '' }} />
+                                        <input type="checkbox" name="research_center" value="1" {{ $dept->research_center ? 'checked' : '' }} />
                                         Research Center
                                     </label>
                                 </div>
                                 <div class="md:col-span-2">
                                     <label class="text-xs font-medium text-gray-600">About</label>
-                                    <textarea name="about" rows="2" class="mt-1 w-full rounded border-gray-300">{{ $department->about }}</textarea>
+                                    <textarea name="about" rows="2" class="mt-1 w-full rounded border-gray-300">{{ $dept->about }}</textarea>
                                 </div>
                                 <div class="md:col-span-2">
                                     <button class="px-3 py-2 bg-gray-900 text-white rounded hover:bg-black">Update</button>
                                 </div>
                             </form>
 
-                            <form method="POST" action="{{ route('admin.departments.destroy', $department) }}" class="mt-2">
+                            <form method="POST" action="{{ route('admin.departments.destroy', $dept) }}" class="mt-2">
                                 @csrf
                                 @method('DELETE')
                                 <button class="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
                             </form>
                         </div>
                     @empty
-                        <p class="text-sm text-gray-600">No departments found.</p>
+                        <p class="text-sm text-gray-600">No departments</p>
                     @endforelse
                 </div>
             </div>

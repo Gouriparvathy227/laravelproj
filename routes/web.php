@@ -31,7 +31,7 @@ Route::view('/student-life', 'student-life')->name('student-life');
 
 Route::get('/academics', [AcademicsController::class, 'index'])->name('academics.index');
 Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
-Route::get('/departments/{slug}', [DepartmentController::class, 'show'])->name('departments.show');
+Route::get('/departments/{id}', [DepartmentController::class, 'show'])->name('departments.show');
 Route::get('/programs', [ProgramController::class, 'index'])->name('programs.index');
 Route::get('/admissions', [AdmissionController::class, 'index'])->name('admissions.index');
 Route::get('/admissions/apply', [AdmissionController::class, 'create'])->name('admissions.apply');
@@ -87,7 +87,7 @@ Route::middleware(['auth', 'role:super_admin,dept_admin'])->prefix('admin')->nam
     Route::patch('/admissions/{application}', [AdminAdmissionController::class, 'updateStatus'])->name('admissions.update');
 });
 
-Route::middleware(['auth', 'role:faculty'])->prefix('faculty-portal')->name('faculty.')->group(function () {
+Route::middleware(['auth', 'role:faculty'])->prefix('faculty')->name('faculty.')->group(function () {
     Route::get('/dashboard', [FacultyDashboardController::class, 'index'])->name('dashboard');
 });
 

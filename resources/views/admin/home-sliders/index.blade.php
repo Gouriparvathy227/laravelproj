@@ -13,10 +13,15 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                @if(session('error'))
+                    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 
                 <h3 class="text-xl font-bold mb-4">Current Sliders</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    @forelse($slides ?? [] as $slide)
+                    @forelse($sliders ?? [] as $slide)
                         <div class="border rounded p-2 shadow">
                             <img src="{{ Storage::url($slide->image_path) }}" class="h-32 w-full object-cover rounded mb-2">
                             <p class="font-bold text-sm">{{ $slide->title ?? 'No title' }}</p>
