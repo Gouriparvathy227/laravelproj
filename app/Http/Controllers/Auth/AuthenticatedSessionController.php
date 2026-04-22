@@ -26,21 +26,6 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $role = (string) $request->input('login_role', 'admin');
-        $roleMap = [
-            'admin' => ['super_admin', 'dept_admin'],
-            'faculty' => ['faculty'],
-            'student' => ['student'],
-        ];
-
-        if (!in_array($request->user()?->role, $roleMap[$role] ?? [], true)) {
-            Auth::guard('web')->logout();
-
-            return back()->withErrors([
-                'email' => 'Invalid login portal for your role.',
-            ])->withInput($request->only('email', 'login_role'));
-        }
-
         $request->session()->regenerate();
 
         $userRole = $request->user()?->role;

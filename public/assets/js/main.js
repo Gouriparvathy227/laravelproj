@@ -6,40 +6,6 @@ const notices = [
   'Scholarship verification camp scheduled on campus auditorium this Friday.'
 ];
 
-const THEME_KEY = 'site_theme';
-
-const initTheme = () => {
-  const root = document.documentElement;
-  const savedTheme = localStorage.getItem(THEME_KEY);
-  const preferredTheme = savedTheme === 'dark' || savedTheme === 'nude' ? savedTheme : 'nude';
-  root.setAttribute('data-theme', preferredTheme);
-
-  const setThemeLabel = (theme) => {
-    const nextLabel = theme === 'dark' ? 'Nude Mode' : 'Dark Mode';
-    const targets = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
-    targets.forEach((button) => {
-      if (!button) return;
-      button.textContent = nextLabel;
-      button.setAttribute('aria-label', `Switch to ${nextLabel}`);
-    });
-  };
-
-  const toggleTheme = () => {
-    const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'nude';
-    const next = current === 'dark' ? 'nude' : 'dark';
-    root.setAttribute('data-theme', next);
-    localStorage.setItem(THEME_KEY, next);
-    setThemeLabel(next);
-  };
-
-  [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')].forEach((button) => {
-    if (!button) return;
-    button.addEventListener('click', toggleTheme);
-  });
-
-  setThemeLabel(preferredTheme);
-};
-
 const mountLayout = () => {
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileNav = document.getElementById('mobile-nav-panel');
@@ -260,7 +226,6 @@ const initPageTransitions = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
   mountLayout();
   mountTicker();
   initHeroSlider();

@@ -16,8 +16,9 @@
         theme: {
           extend: {
             colors: {
-              sgcPrimary: '#1A3A6B',
-              sgcGold: '#C49A22'
+              sgcPrimary: '#1B3A6B',
+              sgcGold: '#C8952A',
+              sgcAccent: '#16A085'
             }
           }
         }
@@ -41,59 +42,57 @@
   <header class="site-header sticky top-0 z-40">
     <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between gap-4">
       <a href="{{ url('/') }}" class="flex items-center gap-3 focus-ring">
-        <img src="{{ asset('assets/images/brand/college-logo.png') }}" alt="St. George's College logo" class="h-12 w-12 rounded-full object-cover border border-slate-200" loading="eager" />
+        <img src="{{ asset('assets/images/logo.png') }}" alt="St. George's College" class="h-12 w-auto object-contain" loading="eager" />
         <div>
-          <p class="font-heading text-lg leading-tight" style="color: var(--color-primary);">St. George's College Aruvithura</p>
-          <p class="text-xs text-slate-500">Since 1965 | Erattupetta, Kerala</p>
+          <p class="font-heading text-lg leading-tight text-white">St. George's College Aruvithura</p>
+          <p class="text-xs text-white/80">Since 1965 | Erattupetta, Kerala</p>
         </div>
       </a>
-      <button id="mobile-menu-btn" class="md:hidden px-3 py-2 border border-slate-300 rounded-lg focus-ring" aria-controls="site-nav" aria-expanded="false">Menu</button>
-      <nav id="site-nav" class="hidden md:flex items-center gap-5 text-sm font-medium" aria-label="Primary">
-        <a href="{{ route('home') }}" class="focus-ring nav-link {{ request()->routeIs('home') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Home</a>
-        <a href="{{ route('about') }}" class="focus-ring nav-link {{ request()->routeIs('about') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">About</a>
-        <a href="{{ route('academics.index') }}" class="focus-ring nav-link {{ request()->routeIs('academics.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Academics</a>
-        <a href="{{ route('departments.index') }}" class="focus-ring nav-link {{ request()->routeIs('departments.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Departments</a>
-        <a href="{{ route('admissions.index') }}" class="focus-ring nav-link {{ request()->routeIs('admissions.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Admissions</a>
-        <a href="{{ route('placements.index') }}" class="focus-ring nav-link {{ request()->routeIs('placements.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Placements</a>
-        <a href="{{ route('facilities') }}" class="focus-ring nav-link {{ request()->routeIs('facilities') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Facilities</a>
-        <a href="{{ route('notices.index') }}" class="focus-ring nav-link {{ request()->routeIs('notices.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Notices</a>
-        <a href="{{ route('gallery.index') }}" class="focus-ring nav-link {{ request()->routeIs('gallery.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Gallery</a>
-        <a href="{{ route('contact.index') }}" class="focus-ring nav-link {{ request()->routeIs('contact.*') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Contact</a>
+      <button id="mobile-menu-btn" class="md:hidden px-3 py-2 border border-white/40 text-white rounded-lg focus-ring" aria-controls="site-nav" aria-expanded="false">Menu</button>
+      <nav id="site-nav" class="hidden md:flex items-center gap-5 text-sm font-medium text-white" aria-label="Primary">
+        <a href="{{ route('home') }}" class="focus-ring nav-link {{ request()->routeIs('home') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Home</a>
+        <a href="{{ route('about') }}" class="focus-ring nav-link {{ request()->routeIs('about') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">About</a>
+        <a href="{{ route('academics.index') }}" class="focus-ring nav-link {{ request()->routeIs('academics.*') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Academics</a>
+        <a href="{{ route('departments.index') }}" class="focus-ring nav-link {{ request()->routeIs('departments.*') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Departments</a>
+        <a href="{{ route('admissions.index') }}" class="focus-ring nav-link {{ request()->routeIs('admissions.*') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Admissions</a>
+        <a href="{{ route('placements.index') }}" class="focus-ring nav-link {{ request()->routeIs('placements.*') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Placements</a>
+        <a href="{{ route('facilities') }}" class="focus-ring nav-link {{ request()->routeIs('facilities') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Facilities</a>
+        <a href="{{ route('notices.index') }}" class="focus-ring nav-link {{ request()->routeIs('notices.*') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Notices</a>
+        <a href="{{ route('gallery.index') }}" class="focus-ring nav-link {{ request()->routeIs('gallery.*') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Gallery</a>
+        <a href="{{ route('contact.index') }}" class="focus-ring nav-link {{ request()->routeIs('contact.*') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Contact</a>
         @guest
-          <a href="{{ route('login') }}" class="focus-ring nav-link {{ request()->routeIs('login') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Login</a>
+          <a href="{{ route('login') }}" class="focus-ring nav-link {{ request()->routeIs('login') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Login</a>
         @else
-          <a href="{{ route('dashboard') }}" class="focus-ring nav-link {{ request()->routeIs('dashboard') ? 'border-b-2 border-[var(--color-primary)] pb-1 text-[var(--color-primary)]' : '' }}">Dashboard</a>
+          <a href="{{ route('dashboard') }}" class="focus-ring nav-link {{ request()->routeIs('dashboard') ? 'border-b-2 border-[#C8952A] pb-1 text-white' : '' }}">Dashboard</a>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="focus-ring nav-link">Logout</button>
           </form>
         @endguest
-        <button id="theme-toggle" type="button" class="theme-toggle-btn focus-ring" aria-label="Toggle theme">Dark Mode</button>
         <a href="{{ url('/admissions/apply') }}" class="nav-apply focus-ring">Quick Apply</a>
       </nav>
     </div>
     <nav id="mobile-nav-panel" class="site-mobile-panel md:hidden hidden px-4 py-3" aria-label="Mobile Primary">
       <div class="grid gap-2 text-sm">
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('home') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('home') }}">Home</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('about') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('about') }}">About</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('academics.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('academics.index') }}">Academics</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('departments.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('departments.index') }}">Departments</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('admissions.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('admissions.index') }}">Admissions</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('placements.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('placements.index') }}">Placements</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('facilities') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('facilities') }}">Facilities</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('notices.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('notices.index') }}">Notices</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('gallery.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('gallery.index') }}">Gallery</a>
-        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('contact.*') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('contact.index') }}">Contact</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('home') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('home') }}">Home</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('about') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('about') }}">About</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('academics.*') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('academics.index') }}">Academics</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('departments.*') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('departments.index') }}">Departments</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('admissions.*') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('admissions.index') }}">Admissions</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('placements.*') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('placements.index') }}">Placements</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('facilities') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('facilities') }}">Facilities</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('notices.*') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('notices.index') }}">Notices</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('gallery.*') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('gallery.index') }}">Gallery</a>
+        <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('contact.*') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('contact.index') }}">Contact</a>
         @guest
-          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('login') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('login') }}">Login</a>
+          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('login') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('login') }}">Login</a>
         @else
-          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('dashboard') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
+          <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('dashboard') ? 'border-b-2 border-[#C8952A] text-white' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="w-full text-left px-2 py-2 rounded hover:bg-slate-100 focus-ring">Logout</button>
           </form>
         @endguest
-        <button id="theme-toggle-mobile" type="button" class="theme-toggle-btn w-full text-left focus-ring">Dark Mode</button>
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/admissions/apply') }}">Apply Online</a>
       </div>
     </nav>
@@ -124,9 +123,7 @@
           <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('student-life') }}">Student Life</a></li>
           <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('facilities') }}">Facilities</a></li>
           <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('history') }}">History</a></li>
-          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('login') }}#admin">Admin Login</a></li>
-          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('login') }}#faculty">Faculty Login</a></li>
-          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('login') }}#student">Student Login</a></li>
+          <li><a class="hover:text-[var(--color-secondary)] focus-ring" href="{{ route('login') }}">Admin Login</a></li>
         </ul>
       </div>
       <div>

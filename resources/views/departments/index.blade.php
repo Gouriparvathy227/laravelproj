@@ -1,10 +1,36 @@
 @extends('layouts.frontend')
 @section('title', 'Departments')
 @section('content')
-<header class="rounded-3xl bg-white border border-slate-200 p-8">
-      <h1 class="font-heading text-4xl text-sgcNavy">Departments</h1>
-      <p class="mt-4 text-slate-700">Explore every department, then open the detail page for HOD and faculty information.</p>
+<header class="rounded-3xl bg-primary text-white p-8 md:p-12">
+      <h1 class="font-heading text-4xl md:text-5xl">Our Departments</h1>
+      <p class="mt-4 text-white/90 max-w-3xl">St. George's College offers a wide range of undergraduate and postgraduate programmes designed to combine academic depth with practical career readiness.</p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="accent-badge">Research Focused</span>
+        <span class="accent-badge">NAAC A++</span>
+        <span class="accent-badge">Industry Aligned</span>
+      </div>
     </header>
+
+    <section class="mt-8 rounded-2xl bg-white border border-slate-200 p-7">
+      <h2 class="section-title font-heading text-2xl text-sgcNavy">Department Overview</h2>
+      <p class="mt-8 text-slate-700">From sciences and humanities to commerce and technology, our departments support students with experienced faculty, modern laboratories, and academic mentoring.</p>
+      <p class="mt-3 text-slate-700">Each department page provides detailed information on faculty leadership, programme strengths, and learning opportunities for students.</p>
+    </section>
+
+    <section class="mt-8 grid sm:grid-cols-3 gap-4">
+      <article class="rounded-xl bg-white border border-slate-200 p-5">
+        <p class="text-xs text-slate-500 uppercase tracking-wide">Academic Units</p>
+        <p class="mt-2 text-3xl font-bold text-sgcNavy">{{ $departments->count() }}</p>
+      </article>
+      <article class="rounded-xl bg-white border border-slate-200 p-5">
+        <p class="text-xs text-slate-500 uppercase tracking-wide">Programmes</p>
+        <p class="mt-2 text-3xl font-bold text-sgcNavy">UG + PG</p>
+      </article>
+      <article class="rounded-xl bg-white border border-slate-200 p-5">
+        <p class="text-xs text-slate-500 uppercase tracking-wide">Learning Model</p>
+        <p class="mt-2 text-3xl font-bold text-sgcNavy">Theory + Practice</p>
+      </article>
+    </section>
 
     <section class="mt-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
