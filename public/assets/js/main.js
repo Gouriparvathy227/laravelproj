@@ -152,6 +152,70 @@ const initActivePanelLinks = () => {
   });
 };
 
+const initRevealAnimations = () => {
+  const targets = Array.from(
+    document.querySelectorAll(
+      'main > header, main section, main section > article, main section > aside, main section > div, main .stat-card, main .feature-card, main .panel-card'
+    )
+  );
+
+  if (!targets.length) return;
+
+  targets.forEach((target, index) => {
+    if (target.closest('.hero-overlay') || target.hasAttribute('data-no-reveal')) {
+      return;
+    }
+
+    const dir = index % 3 === 0 ? 'reveal-left' : index % 3 === 1 ? 'reveal-right' : 'reveal-bottom';
+    target.classList.add('reveal-on-scroll', dir);
+  });
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.16, rootMargin: '0px 0px -6% 0px' }
+  );
+
+  document.querySelectorAll('.reveal-on-scroll').forEach((element) => observer.observe(element));
+};
+
+const initPageTransitions = () => {
+  document.body.classList.add('page-enter');
+  requestAnimationFrame(() => {
+    document.body.classList.add('page-ready');
+  });
+
+  const links = document.querySelectorAll('a[href]');
+  links.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const href = link.getAttribute('href') || '';
+      const target = link.getAttribute('target');
+      const isModifier = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+      const isExternal = href.startsWith('http') && !href.includes(window.location.host);
+      const isAnchorOnly = href.startsWith('#');
+
+      if (isModifier || isExternal || isAnchorOnly || target === '_blank' || link.hasAttribute('download')) {
+        return;
+      }
+
+      if (href.startsWith('javascript:') || href === '' || href === window.location.pathname) {
+        return;
+      }
+
+      event.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 220);
+    });
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   mountLayout();
   mountTicker();
@@ -159,4 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
   animateCounters();
   initFilters();
   initActivePanelLinks();
+  initRevealAnimations();
+  initPageTransitions();
 });
