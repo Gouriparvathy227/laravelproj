@@ -29,7 +29,7 @@
 <body data-page="@yield('page', 'home')" class="bg-campus">
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 bg-white px-3 py-2 rounded-md">Skip to content</a>
   <div class="min-h-screen w-full">
-  <div class="text-white text-xs md:text-sm" style="background-color: var(--color-primary);">
+  <div class="site-topbar text-xs md:text-sm">
     <div class="mx-auto max-w-7xl px-4 py-2 flex flex-wrap items-center justify-between gap-2">
       <p>Affiliated to Mahatma Gandhi University, Kottayam | NAAC A++ Accredited</p>
       <div class="flex items-center gap-4">
@@ -38,7 +38,7 @@
       </div>
     </div>
   </div>
-  <header class="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-40">
+  <header class="site-header sticky top-0 z-40">
     <div class="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between gap-4">
       <a href="{{ url('/') }}" class="flex items-center gap-3 focus-ring">
         <img src="{{ asset('assets/images/brand/college-logo.png') }}" alt="St. George's College logo" class="h-12 w-12 rounded-full object-cover border border-slate-200" loading="eager" />
@@ -68,10 +68,11 @@
             <button type="submit" class="focus-ring nav-link">Logout</button>
           </form>
         @endguest
+        <button id="theme-toggle" type="button" class="theme-toggle-btn focus-ring" aria-label="Toggle theme">Dark Mode</button>
         <a href="{{ url('/admissions/apply') }}" class="nav-apply focus-ring">Quick Apply</a>
       </nav>
     </div>
-    <nav id="mobile-nav-panel" class="md:hidden hidden border-t border-slate-200 px-4 py-3 bg-white" aria-label="Mobile Primary">
+    <nav id="mobile-nav-panel" class="site-mobile-panel md:hidden hidden px-4 py-3" aria-label="Mobile Primary">
       <div class="grid gap-2 text-sm">
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('home') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('home') }}">Home</a>
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring {{ request()->routeIs('about') ? 'border-b-2 border-[var(--color-primary)] text-[var(--color-primary)]' : '' }}" href="{{ route('about') }}">About</a>
@@ -92,6 +93,7 @@
             <button type="submit" class="w-full text-left px-2 py-2 rounded hover:bg-slate-100 focus-ring">Logout</button>
           </form>
         @endguest
+        <button id="theme-toggle-mobile" type="button" class="theme-toggle-btn w-full text-left focus-ring">Dark Mode</button>
         <a class="px-2 py-2 rounded hover:bg-slate-100 focus-ring" href="{{ url('/admissions/apply') }}">Apply Online</a>
       </div>
     </nav>
@@ -101,7 +103,7 @@
     @yield('content')
   </main>
 
-  <footer class="mt-16 text-white" style="background-color: var(--color-footer);">
+  <footer class="site-footer mt-16">
     <div class="mx-auto max-w-7xl px-4 py-12 grid md:grid-cols-4 gap-8">
       <div>
         <h3 class="font-heading text-xl mb-3 text-white">St. George's College Aruvithura</h3>
