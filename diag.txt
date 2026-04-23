@@ -1,0 +1,18 @@
+
+In Factory.php line 652:
+                        
+  The openssl extensio  
+  n is required for SS  
+  L/TLS protection but  
+   is not available. I  
+  f you can not enable  
+   the openssl extensi  
+  on, you can disable   
+  this error, at your   
+  own risk, by setting  
+   the 'disable-tls' o  
+  ption to true.        
+                        
+
+diagnose
+
