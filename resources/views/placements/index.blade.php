@@ -20,8 +20,8 @@
           <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50">
             <img
               loading="lazy"
-              src="https://logo.clearbit.com/{{ $company['domain'] }}"
-              onerror="this.onerror=null;this.src='{{ asset('assets/images/company-placeholder.png') }}';"
+              src="{{ asset('assets/images/companies/' . $company['logo']) }}"
+              onerror="this.onerror=null;this.src='{{ asset('assets/images/companies/placeholder.svg') }}';"
               alt="{{ $company['name'] ?? 'Company' }}"
               class="h-12 w-auto object-contain mx-auto"
             />

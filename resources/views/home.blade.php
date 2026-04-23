@@ -31,7 +31,7 @@
 
   $heroSlides = $slides->map(function ($slide) {
       return [
-          'image' => asset('storage/' . $slide->image_path),
+          'image' => $slide->image_url,
           'alt' => $slide->alt_text ?: "St. George's College campus",
           'title' => $slide->title ?: "St. George's College Aruvithura",
           'caption' => $slide->caption ?: 'NAAC A++ accredited institution in Kerala.',
@@ -225,8 +225,8 @@
             </div>
           </template>
 
-          <button @click="prev()" class="absolute left-0 top-1/2 -translate-y-1/2 bg-[#1B3A6B] text-white rounded-full w-7 h-7 flex items-center justify-center text-xs -ml-3">‹</button>
-          <button @click="next()" class="absolute right-0 top-1/2 -translate-y-1/2 bg-[#1B3A6B] text-white rounded-full w-7 h-7 flex items-center justify-center text-xs -mr-3">›</button>
+          <button @click="prev()" class="absolute left-0 top-1/2 -translate-y-1/2 bg-[#1B3A6B] text-white rounded-full w-7 h-7 flex items-center justify-center text-xs -ml-3" aria-label="Previous testimonial">&lsaquo;</button>
+          <button @click="next()" class="absolute right-0 top-1/2 -translate-y-1/2 bg-[#1B3A6B] text-white rounded-full w-7 h-7 flex items-center justify-center text-xs -mr-3" aria-label="Next testimonial">&rsaquo;</button>
         </div>
 
         <div class="flex justify-center gap-2 mt-4">

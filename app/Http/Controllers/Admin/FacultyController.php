@@ -53,6 +53,7 @@ class FacultyController extends Controller
                 : null;
 
             unset($validated['photo']);
+            $validated = $this->filterToExistingColumns($validated);
 
             FacultyProfile::create([
                 ...$validated,
@@ -69,7 +70,7 @@ class FacultyController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Failed to save faculty profile. Please verify data and try again.');
+                ->with('error', 'Failed to save faculty profile. Please verify required fields and table structure, then try again.');
         }
     }
 
@@ -79,6 +80,7 @@ class FacultyController extends Controller
             $validated = $this->validateRequest($request, true);
             $validated = $this->normalizeFacultyPayload($validated);
             unset($validated['photo']);
+            $validated = $this->filterToExistingColumns($validated);
 
             if ($request->hasFile('photo')) {
                 $validated['photo_path'] = $request->file('photo')->store('faculty', 'public');
@@ -97,7 +99,7 @@ class FacultyController extends Controller
 
             return back()
                 ->withInput()
-                ->with('error', 'Failed to update faculty profile. Please verify data and try again.');
+                ->with('error', 'Failed to update faculty profile. Please verify required fields and table structure, then try again.');
         }
     }
 
@@ -140,5 +142,14 @@ class FacultyController extends Controller
         }
 
         return $validated;
+    }
+
+    private function filterToExistingColumns(array $payload): array
+    {
+        $columns = Schema::getColumnListing('faculty_profiles');
+
+        return collect($payload)
+            ->only($columns)
+            ->all();
     }
 }

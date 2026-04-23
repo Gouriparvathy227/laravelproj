@@ -32,9 +32,34 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                     @forelse($sliders ?? [] as $slide)
                         <div class="border rounded p-2 shadow">
-                            <img src="{{ Storage::url($slide->image_path) }}" class="h-32 w-full object-cover rounded mb-2">
-                            <p class="font-bold text-sm">{{ $slide->title ?? 'No title' }}</p>
-                            <p class="text-xs text-gray-500">Order: {{ $slide->display_order }} | Active: {{ $slide->is_active ? 'Yes' : 'No' }}</p>
+                            <img src="{{ $slide->image_url }}" class="h-32 w-full object-cover rounded mb-2" alt="{{ $slide->alt_text ?? 'Slider image' }}">
+                            <form action="{{ route('admin.home-sliders.update', $slide->id) }}" method="POST" enctype="multipart/form-data" class="space-y-2">
+                                @csrf
+                                @method('PATCH')
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700">Title</label>
+                                    <input type="text" name="title" value="{{ $slide->title }}" class="mt-1 w-full rounded border-gray-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700">Description</label>
+                                    <textarea name="caption" rows="2" class="mt-1 w-full rounded border-gray-300 text-sm">{{ $slide->caption }}</textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700">Display Order</label>
+                                    <input type="number" name="display_order" value="{{ $slide->display_order ?? 0 }}" class="mt-1 w-full rounded border-gray-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700">Replace Image (optional)</label>
+                                    <input type="file" name="image" accept="image/*" class="mt-1 w-full text-sm">
+                                </div>
+                                <label class="inline-flex items-center gap-2 text-xs text-gray-700">
+                                    <input type="checkbox" name="is_active" value="1" {{ $slide->is_active ? 'checked' : '' }}>
+                                    Active
+                                </label>
+                                <button type="submit" class="w-full text-xs bg-blue-600 hover:bg-blue-700 text-white rounded px-2 py-1.5">
+                                    Save Changes
+                                </button>
+                            </form>
                             <form action="{{ url('/admin/home-sliders/' . $slide->id) }}" method="POST" class="mt-2">
                                 @csrf
                                 @method('DELETE')
@@ -54,6 +79,10 @@
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Title</label>
                         <input type="text" name="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+                        <textarea name="caption" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Image</label>

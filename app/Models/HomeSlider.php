@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class HomeSlider extends Model
 {
@@ -27,5 +28,27 @@ class HomeSlider extends Model
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        $path = (string) $this->image_path;
+        if ($path === '') {
+            return asset('assets/images/gallery/college-graduation-1.jpeg');
+        }
+
+        if (Str::startsWith($path, ['http://', 'https://'])) {
+            return $path;
+        }
+
+        if (Str::startsWith($path, '/storage/')) {
+            return asset(ltrim($path, '/'));
+        }
+
+        if (Str::startsWith($path, 'storage/')) {
+            return asset($path);
+        }
+
+        return asset('storage/' . ltrim($path, '/'));
     }
 }

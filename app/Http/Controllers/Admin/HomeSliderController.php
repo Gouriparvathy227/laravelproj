@@ -38,16 +38,7 @@ class HomeSliderController extends Controller
                 return back()->withInput()->with('error', 'Home sliders table is missing. Please run migrations.');
             }
 
-            $validated = $request->validate([
-                'title' => ['nullable', 'string', 'max:255'],
-                'subtitle' => ['nullable', 'string', 'max:255'],
-                'caption' => ['nullable', 'string', 'max:2000'],
-                'alt_text' => ['nullable', 'string', 'max:255'],
-                'order' => ['nullable', 'integer', 'min:0'],
-                'display_order' => ['nullable', 'integer', 'min:0'],
-                'is_active' => ['nullable', 'boolean'],
-                'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
-            ]);
+            $validated = $this->validateSlider($request, true);
 
             // Upload the file to the public disk so Storage::url(...) works in frontend/admin views.
             $path = $request->file('image')->store('sliders', 'public');
@@ -95,6 +86,60 @@ class HomeSliderController extends Controller
         }
     }
 
+    public function update(Request $request, int $id)
+    {
+        try {
+            if (!Schema::hasTable('home_sliders')) {
+                return back()->withInput()->with('error', 'Home sliders table is missing. Please run migrations.');
+            }
+
+            $slide = HomeSlider::findOrFail($id);
+            $validated = $this->validateSlider($request, false);
+
+            $payload = [
+                'title' => $validated['title'] ?? null,
+                'caption' => $validated['caption'] ?? null,
+                'alt_text' => $validated['alt_text'] ?? null,
+                'is_active' => (bool) ($validated['is_active'] ?? false),
+            ];
+
+            if (Schema::hasColumn('home_sliders', 'display_order')) {
+                $payload['display_order'] = $validated['display_order'] ?? 0;
+            }
+
+            if (Schema::hasColumn('home_sliders', 'subtitle')) {
+                $payload['subtitle'] = $validated['subtitle'] ?? null;
+            }
+
+            if (Schema::hasColumn('home_sliders', 'order')) {
+                $payload['order'] = $validated['order'] ?? ($validated['display_order'] ?? 0);
+            }
+
+            if ($request->hasFile('image')) {
+                $newPath = $request->file('image')->store('sliders', 'public');
+                if (!$newPath) {
+                    throw new \RuntimeException('Unable to store updated slider image.');
+                }
+
+                if ($slide->image_path && Storage::disk('public')->exists($slide->image_path)) {
+                    Storage::disk('public')->delete($slide->image_path);
+                }
+
+                $payload['image_path'] = $newPath;
+            }
+
+            $slide->update($payload);
+
+            return back()->with('success', 'Homepage slider updated successfully.');
+        } catch (ValidationException $exception) {
+            throw $exception;
+        } catch (\Throwable $exception) {
+            report($exception);
+
+            return back()->withInput()->with('error', 'Failed to update slider. Please verify fields and image file.');
+        }
+    }
+
     public function destroy(int $id)
     {
         $slide = HomeSlider::findOrFail($id);
@@ -106,5 +151,19 @@ class HomeSliderController extends Controller
         $slide->delete();
 
         return back()->with('success', 'Homepage image removed successfully.');
+    }
+
+    private function validateSlider(Request $request, bool $imageRequired): array
+    {
+        return $request->validate([
+            'title' => ['nullable', 'string', 'max:255'],
+            'subtitle' => ['nullable', 'string', 'max:255'],
+            'caption' => ['nullable', 'string', 'max:2000'],
+            'alt_text' => ['nullable', 'string', 'max:255'],
+            'order' => ['nullable', 'integer', 'min:0'],
+            'display_order' => ['nullable', 'integer', 'min:0'],
+            'is_active' => ['nullable', 'boolean'],
+            'image' => [$imageRequired ? 'required' : 'nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+        ]);
     }
 }

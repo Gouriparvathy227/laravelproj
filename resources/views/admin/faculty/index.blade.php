@@ -17,6 +17,15 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded">
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             @if (!empty($tableExists) && !$tableExists)
                 <div class="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded">

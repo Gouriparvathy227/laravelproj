@@ -68,6 +68,7 @@ Route::middleware(['auth', 'role:super_admin,dept_admin'])->prefix('admin')->nam
 
     Route::get('/home-sliders', [HomeSliderController::class, 'index'])->name('home-sliders.index');
     Route::post('/home-sliders', [HomeSliderController::class, 'store'])->name('home-sliders.store');
+    Route::patch('/home-sliders/{id}', [HomeSliderController::class, 'update'])->name('home-sliders.update');
     Route::delete('/home-sliders/{id}', [HomeSliderController::class, 'destroy'])->name('home-sliders.destroy');
 
     Route::get('/departments', [AdminDepartmentController::class, 'index'])->name('departments.index');

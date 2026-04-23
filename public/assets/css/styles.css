@@ -315,6 +315,12 @@ main table tbody tr {
   color: #ffffff !important;
 }
 
+.stat-card .text-sgcNavy,
+.feature-card .text-sgcNavy,
+.panel-card .text-sgcNavy {
+  color: #ffffff !important;
+}
+
 main > header[class*='rounded']:hover,
 main section > article[class*='rounded']:hover,
 main section > aside[class*='rounded']:hover,
