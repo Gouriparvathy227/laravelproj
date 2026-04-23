@@ -146,17 +146,32 @@
       </aside>
     </section>
 
+    @php
+      $topRecruiters = [
+          ['name' => 'TCS', 'logo' => asset('assets/images/recruiters/tcs.svg')],
+          ['name' => 'Infosys', 'logo' => asset('assets/images/recruiters/infosys.svg')],
+          ['name' => 'Wipro', 'logo' => asset('assets/images/recruiters/wipro.svg')],
+          ['name' => 'Cognizant', 'logo' => asset('assets/images/recruiters/cognizant.svg')],
+          ['name' => 'HCLTech', 'logo' => asset('assets/images/recruiters/hcltech.svg')],
+          ['name' => 'Deloitte', 'logo' => asset('assets/images/recruiters/deloitte.svg')],
+          ['name' => 'Capgemini', 'logo' => asset('assets/images/recruiters/capgemini.svg')],
+          ['name' => 'South Indian Bank', 'logo' => asset('assets/images/recruiters/southindianbank.svg')],
+      ];
+    @endphp
     <section class="mx-auto max-w-7xl px-4 py-16">
       <h2 class="section-title font-heading text-3xl text-sgcNavy">Top Recruiters</h2>
       <div class="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">TCS</div>
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">Infosys</div>
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">Wipro</div>
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">Cognizant</div>
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">HCL</div>
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">Deloitte</div>
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">Capgemini</div>
-        <div class="rounded-lg bg-white border border-slate-200 p-3 text-center font-medium text-slate-700">South Indian Bank</div>
+        @foreach ($topRecruiters as $recruiter)
+          <div class="rounded-lg bg-white border border-slate-200 p-3 text-center">
+            <img
+              src="{{ $recruiter['logo'] }}"
+              alt="{{ $recruiter['name'] }} logo"
+              class="mx-auto h-9 w-auto object-contain"
+              loading="lazy"
+            />
+            <p class="mt-2 text-xs font-semibold text-slate-700">{{ $recruiter['name'] }}</p>
+          </div>
+        @endforeach
       </div>
     </section>
 

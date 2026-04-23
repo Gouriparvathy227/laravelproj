@@ -537,6 +537,18 @@ main .bg-slate-50 {
   color: var(--color-text) !important;
 }
 
+/* Keep homepage data cards legible even with global surface overrides. */
+main .stat-card,
+main .feature-card,
+main .panel-card,
+main .stat-card.bg-white,
+main .feature-card.bg-white,
+main .panel-card.bg-white {
+  background-color: #1B3A6B !important;
+  color: #ffffff !important;
+  border-color: rgba(200, 149, 42, 0.42) !important;
+}
+
 main .border-slate-200,
 main .border-slate-100,
 main .border-gray-200,
