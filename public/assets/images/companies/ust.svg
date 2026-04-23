@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="UST logo">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#7c2d12" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" rx="22" fill="url(#g)" />
+  <text x="160" y="92" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700" fill="#ffffff">UST</text>
+  <text x="160" y="126" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#ffedd5">UST</text>
+</svg>

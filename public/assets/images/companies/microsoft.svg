@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Microsoft logo">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0078d4" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" rx="22" fill="url(#g)" />
+  <rect x="62" y="56" width="22" height="22" fill="#f25022" />
+  <rect x="88" y="56" width="22" height="22" fill="#7fba00" />
+  <rect x="62" y="82" width="22" height="22" fill="#00a4ef" />
+  <rect x="88" y="82" width="22" height="22" fill="#ffb900" />
+  <text x="196" y="94" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="700" fill="#ffffff">MICROSOFT</text>
+  <text x="196" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#e2e8f0">Microsoft</text>
+</svg>

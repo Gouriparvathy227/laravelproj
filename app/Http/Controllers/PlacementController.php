@@ -11,9 +11,22 @@ class PlacementController extends Controller
             'Infosys' => 'infosys.svg',
             'Wipro' => 'wipro.svg',
             'HCL' => 'hcltech.svg',
+            'Accenture' => 'accenture.svg',
+            'IBM' => 'ibm.svg',
             'Cognizant' => 'cognizant.svg',
             'Capgemini' => 'capgemini.svg',
+            'Tech Mahindra' => 'techmahindra.svg',
+            'Amazon' => 'amazon.svg',
+            'Google' => 'google.svg',
+            'Microsoft' => 'microsoft.svg',
+            'Zoho' => 'zoho.svg',
+            'UST' => 'ust.svg',
+            'KPMG' => 'kpmg.svg',
             'Deloitte' => 'deloitte.svg',
+            'Mphasis' => 'mphasis.svg',
+            'L&T' => 'lt.svg',
+            'HDFC' => 'hdfc.svg',
+            'South Indian Bank' => 'southindianbank.svg',
         ];
 
         $companies = collect([
