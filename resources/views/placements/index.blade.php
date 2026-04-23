@@ -20,7 +20,7 @@
           <figure class="rounded-xl border border-slate-200 p-4 bg-slate-50">
             <img
               loading="lazy"
-              src="{{ asset('assets/images/companies/' . $company['logo']) }}"
+              src="{{ asset('assets/images/companies/' . ($company['logo'] ?? 'placeholder.svg')) }}"
               onerror="this.onerror=null;this.src='{{ asset('assets/images/companies/placeholder.svg') }}';"
               alt="{{ $company['name'] ?? 'Company' }}"
               class="h-12 w-auto object-contain mx-auto"

@@ -6,7 +6,17 @@ class PlacementController extends Controller
 {
     public function index()
     {
-        $companies = [
+        $logoMap = [
+            'TCS' => 'tcs.svg',
+            'Infosys' => 'infosys.svg',
+            'Wipro' => 'wipro.svg',
+            'HCL' => 'hcltech.svg',
+            'Cognizant' => 'cognizant.svg',
+            'Capgemini' => 'capgemini.svg',
+            'Deloitte' => 'deloitte.svg',
+        ];
+
+        $companies = collect([
             ['name' => 'TCS', 'domain' => 'tcs.com'],
             ['name' => 'Infosys', 'domain' => 'infosys.com'],
             ['name' => 'Wipro', 'domain' => 'wipro.com'],
@@ -26,7 +36,11 @@ class PlacementController extends Controller
             ['name' => 'Mphasis', 'domain' => 'mphasis.com'],
             ['name' => 'L&T', 'domain' => 'larsentoubro.com'],
             ['name' => 'HDFC', 'domain' => 'hdfcbank.com'],
-        ];
+        ])->map(function (array $company) use ($logoMap): array {
+            $company['logo'] = $logoMap[$company['name']] ?? 'placeholder.svg';
+
+            return $company;
+        })->all();
 
         $stats = [
             'recruiters' => count($companies),
