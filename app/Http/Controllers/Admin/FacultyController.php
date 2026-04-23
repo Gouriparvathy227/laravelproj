@@ -7,8 +7,8 @@ use App\Models\Department;
 use App\Models\FacultyProfile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class FacultyController extends Controller
@@ -17,25 +17,19 @@ class FacultyController extends Controller
     {
         try {
             $tableExists = Schema::hasTable('faculty_profiles');
-            $faculties = $tableExists
-                ? FacultyProfile::with('department')->latest()->get()
-                : collect();
-            $departments = Schema::hasTable('departments')
-                ? Department::query()->orderBy('name')->get()
-                : collect();
+            $faculty = $tableExists ? FacultyProfile::with('department')->latest()->get() : collect();
+            $faculties = $faculty;
+            $departments = Schema::hasTable('departments') ? Department::all() : collect();
 
-            $faculty = $faculties;
-
-            return view('admin.faculty.index', compact('faculties', 'faculty', 'tableExists', 'departments'));
+            return view('admin.faculty.index', compact('faculty', 'faculties', 'departments', 'tableExists'));
         } catch (\Throwable $exception) {
             report($exception);
 
             return view('admin.faculty.index', [
-                'facultyMembers' => collect(),
-                'faculties' => collect(),
                 'faculty' => collect(),
-                'tableExists' => Schema::hasTable('faculty_profiles'),
+                'faculties' => collect(),
                 'departments' => collect(),
+                'tableExists' => Schema::hasTable('faculty_profiles'),
             ])->with('error', 'Unable to load faculty records right now.');
         }
     }
@@ -43,63 +37,83 @@ class FacultyController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            abort_unless(Schema::hasTable('faculty_profiles'), 500, 'faculty_profiles table not found.');
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'designation' => 'required|string|max:255',
+                'qualification' => 'required|string|max:255',
+                'email' => 'required|email',
+                'phone' => 'nullable|string|max:20',
+                'bio' => 'nullable|string',
+                'experience' => 'nullable|string|max:255',
+                'department_id' => 'nullable|exists:departments,id',
+                'is_hod' => 'nullable|boolean',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
-            $validated = $this->validateRequest($request);
-            $validated = $this->normalizeFacultyPayload($validated);
-
-            $photoPath = $request->file('photo')
+            $photo = $request->hasFile('photo')
                 ? $request->file('photo')->store('faculty', 'public')
                 : null;
 
-            unset($validated['photo']);
-            $validated = $this->filterToExistingColumns($validated);
-
-            FacultyProfile::create([
-                ...$validated,
-                'photo_path' => $photoPath,
+            $payload = array_merge($validated, [
+                'photo' => $photo,
+                'photo_path' => $photo,
+                'is_hod' => $request->boolean('is_hod'),
+                'department' => optional(Department::find($validated['department_id'] ?? null))->name,
+                'experience_years' => $this->extractExperienceYears($validated['experience'] ?? null),
                 'is_active' => $request->boolean('is_active', true),
-                'is_hod' => $request->boolean('is_hod', false),
             ]);
 
-            return back()->with('success', 'Faculty profile saved.');
-        } catch (ValidationException $exception) {
-            throw $exception;
+            FacultyProfile::create($this->filterToExistingColumns($payload));
+
+            return redirect()->route('admin.faculty.index')->with('success', 'Faculty saved.');
         } catch (\Throwable $exception) {
-            report($exception);
+            Log::error('Faculty save: ' . $exception->getMessage());
 
             return back()
                 ->withInput()
-                ->with('error', 'Failed to save faculty profile. Please verify required fields and table structure, then try again.');
+                ->withErrors(['error' => $exception->getMessage()]);
         }
     }
 
     public function update(Request $request, FacultyProfile $faculty): RedirectResponse
     {
         try {
-            $validated = $this->validateRequest($request, true);
-            $validated = $this->normalizeFacultyPayload($validated);
-            unset($validated['photo']);
-            $validated = $this->filterToExistingColumns($validated);
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'designation' => 'required|string|max:255',
+                'qualification' => 'required|string|max:255',
+                'email' => 'required|email',
+                'phone' => 'nullable|string|max:20',
+                'bio' => 'nullable|string',
+                'experience' => 'nullable|string|max:255',
+                'department_id' => 'nullable|exists:departments,id',
+                'is_hod' => 'nullable|boolean',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+
+            $payload = [
+                ...$validated,
+                'is_hod' => $request->boolean('is_hod'),
+                'department' => optional(Department::find($validated['department_id'] ?? null))->name,
+                'experience_years' => $this->extractExperienceYears($validated['experience'] ?? null),
+                'is_active' => $request->boolean('is_active', true),
+            ];
 
             if ($request->hasFile('photo')) {
-                $validated['photo_path'] = $request->file('photo')->store('faculty', 'public');
+                $photo = $request->file('photo')->store('faculty', 'public');
+                $payload['photo'] = $photo;
+                $payload['photo_path'] = $photo;
             }
 
-            $validated['is_active'] = $request->boolean('is_active', true);
-            $validated['is_hod'] = $request->boolean('is_hod', false);
-
-            $faculty->update($validated);
+            $faculty->update($this->filterToExistingColumns($payload));
 
             return back()->with('success', 'Faculty profile updated.');
-        } catch (ValidationException $exception) {
-            throw $exception;
         } catch (\Throwable $exception) {
-            report($exception);
+            Log::error('Faculty update: ' . $exception->getMessage());
 
             return back()
                 ->withInput()
-                ->with('error', 'Failed to update faculty profile. Please verify required fields and table structure, then try again.');
+                ->withErrors(['error' => $exception->getMessage()]);
         }
     }
 
@@ -110,40 +124,6 @@ class FacultyController extends Controller
         return back()->with('success', 'Faculty profile removed.');
     }
 
-    private function validateRequest(Request $request, bool $updating = false): array
-    {
-        $departmentRule = Schema::hasTable('departments')
-            ? ['nullable', 'integer', 'exists:departments,id']
-            : ['nullable', 'integer'];
-
-        return $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'designation' => ['required', 'string', 'max:120'],
-            'department' => ['required', 'string', 'max:120'],
-            'qualification' => ['nullable', 'string', 'max:150'],
-            'specialization' => ['nullable', 'string', 'max:150'],
-            'experience' => ['nullable', 'string', 'max:120'],
-            'experience_years' => ['nullable', 'integer', 'min:0', 'max:60'],
-            'email' => ['nullable', 'email', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:30'],
-            'bio' => ['nullable', 'string'],
-            'department_id' => $departmentRule,
-            'display_order' => ['nullable', 'integer', 'min:0'],
-            'is_hod' => ['nullable', 'boolean'],
-            'photo' => ['nullable', 'image', 'max:2048'],
-        ]);
-    }
-
-    private function normalizeFacultyPayload(array $validated): array
-    {
-        // Keep DB writes consistent with schema defaults and prevent null/int mismatches.
-        if (!array_key_exists('experience_years', $validated) || $validated['experience_years'] === null) {
-            $validated['experience_years'] = 0;
-        }
-
-        return $validated;
-    }
-
     private function filterToExistingColumns(array $payload): array
     {
         $columns = Schema::getColumnListing('faculty_profiles');
@@ -151,5 +131,16 @@ class FacultyController extends Controller
         return collect($payload)
             ->only($columns)
             ->all();
+    }
+
+    private function extractExperienceYears(?string $experience): int
+    {
+        if (!$experience) {
+            return 0;
+        }
+
+        preg_match('/\d+/', $experience, $matches);
+
+        return isset($matches[0]) ? (int) $matches[0] : 0;
     }
 }

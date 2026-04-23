@@ -60,7 +60,7 @@
                     </div>
                     <div>
                         <label class="text-sm font-medium text-gray-700">Qualification</label>
-                        <input name="qualification" class="mt-1 w-full rounded border-gray-300" />
+                        <input name="qualification" class="mt-1 w-full rounded border-gray-300" required />
                     </div>
                     <div>
                         <label class="text-sm font-medium text-gray-700">Specialization</label>
@@ -76,7 +76,7 @@
                     </div>
                     <div>
                         <label class="text-sm font-medium text-gray-700">Email</label>
-                        <input name="email" type="email" class="mt-1 w-full rounded border-gray-300" />
+                        <input name="email" type="email" class="mt-1 w-full rounded border-gray-300" required />
                     </div>
                     <div>
                         <label class="text-sm font-medium text-gray-700">Phone</label>
@@ -143,7 +143,7 @@
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Qualification</label>
-                                    <input name="qualification" value="{{ $member->qualification }}" class="mt-1 w-full rounded border-gray-300" />
+                                    <input name="qualification" value="{{ $member->qualification }}" class="mt-1 w-full rounded border-gray-300" required />
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Specialization</label>
@@ -159,7 +159,7 @@
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Email</label>
-                                    <input name="email" type="email" value="{{ $member->email }}" class="mt-1 w-full rounded border-gray-300" />
+                                    <input name="email" type="email" value="{{ $member->email }}" class="mt-1 w-full rounded border-gray-300" required />
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Phone</label>
