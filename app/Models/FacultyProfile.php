@@ -13,7 +13,9 @@ class FacultyProfile extends Model
         'department',
         'qualification',
         'specialization',
+        'experience',
         'experience_years',
+        'bio',
         'email',
         'phone',
         'department_id',
@@ -30,6 +32,11 @@ class FacultyProfile extends Model
         'display_order' => 'integer',
         'is_active' => 'boolean',
     ];
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
 
     public function departmentRecord(): BelongsTo
     {

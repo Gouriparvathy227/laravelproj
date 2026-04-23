@@ -2,23 +2,6 @@
 @section('title', 'Home')
 @section('content')
 @php
-  $testimonialSlides = collect($testimonials)
-      ->map(function (array $testimonial): array {
-          $initials = collect(explode(' ', $testimonial['name']))
-              ->filter()
-              ->map(fn (string $part) => \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($part, 0, 1)))
-              ->take(2)
-              ->implode('');
-
-          return [
-              'name' => $testimonial['name'],
-              'program' => $testimonial['program'],
-              'quote' => $testimonial['quote'],
-              'initials' => $initials,
-          ];
-      })
-      ->values();
-
   $fallbackHeroSlides = collect([
       [
           'image' => asset('assets/images/gallery/college-graduation-1.jpeg'),
@@ -204,37 +187,51 @@
       </div>
     </section>
 
-    <section
-      class="mx-auto max-w-7xl px-4 py-16"
-      x-data="{ current: 0, slides: {{ \Illuminate\Support\Js::from($testimonialSlides) }}, init() { setInterval(() => { this.current = (this.current - 1 + this.slides.length) % this.slides.length; }, 4500); } }"
-    >
-      <h2 class="section-title font-heading text-3xl text-sgcNavy">Student Testimonials</h2>
-      <p class="mt-4 text-sm text-slate-600">Experiences shared by students across departments.</p>
-      <div class="mt-8 relative min-h-[220px]">
-        <template x-for="(slide, index) in slides" :key="index">
-          <article
-            x-show="current === index"
-            x-transition:enter="transition ease-out duration-500"
-            x-transition:enter-start="opacity-0 translate-x-8"
-            x-transition:enter-end="opacity-100 translate-x-0"
-            x-transition:leave="transition ease-in duration-500"
-            x-transition:leave-start="opacity-100 translate-x-0"
-            x-transition:leave-end="opacity-0 -translate-x-8"
-            class="feature-card rounded-xl border border-slate-200 bg-white p-6 shadow-md"
-          >
-            <div class="flex items-center gap-4">
-              <div class="h-12 w-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold" x-text="slide.initials"></div>
-              <div>
-                <p class="font-semibold text-slate-900" x-text="slide.name"></p>
-                <p class="text-xs text-slate-500" x-text="slide.program"></p>
+    <section class="mx-auto max-w-7xl px-4 py-16">
+      <div class="py-8" x-data="{
+        active: 0,
+        items: 5,
+        next() { this.active = (this.active + 1) % this.items },
+        prev() { this.active = (this.active - 1 + this.items) % this.items }
+      }" x-init="setInterval(() => next(), 4000)">
+        <h2 class="text-2xl font-bold text-center text-[#1B3A6B] mb-6">What Our Alumni Say</h2>
+
+        <div class="relative overflow-hidden max-w-xl mx-auto">
+          <template x-for="(item, index) in [0,1,2,3,4]" :key="index">
+            <div
+              x-show="active === index"
+              x-transition:enter="transition ease-out duration-500"
+              x-transition:enter-start="translate-x-full opacity-0"
+              x-transition:enter-end="translate-x-0 opacity-100"
+              x-transition:leave="transition ease-in duration-300"
+              x-transition:leave-start="translate-x-0 opacity-100"
+              x-transition:leave-end="-translate-x-full opacity-0"
+              class="rounded-xl p-5 shadow-md bg-[#F5C518] text-gray-900">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-full bg-[#1B3A6B] text-white flex items-center justify-center font-bold text-sm flex-shrink-0" x-text="['AM','RK','SV','AM','DN'][index]"></div>
+                <div>
+                  <p class="font-semibold text-sm" x-text="['Anjali Mohan','Rahul Krishnan','Sneha Varghese','Arun Mathew','Divya Nair'][index]"></p>
+                  <p class="text-xs text-gray-600" x-text="['B.Sc Computer Science, 2023','BBA, 2022','B.Com, 2024','M.Sc Physics, 2023','B.Sc Maths, 2022'][index]"></p>
+                </div>
               </div>
+
+              <p class="text-sm italic leading-relaxed" x-text="[
+                'St. George\\'s gave me the foundation to land my dream job at TCS. The faculty here are truly dedicated.',
+                'The campus life and placement support at St. George\\'s College is unmatched in the region.',
+                'I loved every moment here. The faculty mentorship helped me clear my CA Foundation in the first attempt.',
+                'World-class infrastructure and a community that pushes you to excel. Proud to be a Georgian.',
+                'The cultural fests and NSS activities shaped my personality as much as the academics did.'
+              ][index]"></p>
             </div>
-            <p class="mt-4 text-sm text-slate-700" x-text="`\\\"${slide.quote}\\\"`"></p>
-          </article>
-        </template>
-        <div class="mt-5 flex gap-2">
-          <template x-for="(slide, index) in slides" :key="`dot-${index}`">
-            <button type="button" class="h-2.5 w-2.5 rounded-full transition" :class="current === index ? 'bg-blue-600' : 'bg-slate-300'" @click="current = index" :aria-label="`Show testimonial ${index + 1}`"></button>
+          </template>
+
+          <button @click="prev()" class="absolute left-0 top-1/2 -translate-y-1/2 bg-[#1B3A6B] text-white rounded-full w-7 h-7 flex items-center justify-center text-xs -ml-3">‹</button>
+          <button @click="next()" class="absolute right-0 top-1/2 -translate-y-1/2 bg-[#1B3A6B] text-white rounded-full w-7 h-7 flex items-center justify-center text-xs -mr-3">›</button>
+        </div>
+
+        <div class="flex justify-center gap-2 mt-4">
+          <template x-for="i in [0,1,2,3,4]" :key="i">
+            <button @click="active=i" :class="active===i ? 'bg-[#1B3A6B] w-4' : 'bg-gray-300 w-2'" class="h-2 rounded-full transition-all duration-300"></button>
           </template>
         </div>
       </div>

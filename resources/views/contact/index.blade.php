@@ -38,9 +38,9 @@
         </form>
       </article>
 
-      <aside class="rounded-2xl bg-sgcNavy text-white p-4 max-w-sm w-full">
+      <aside class="rounded-2xl bg-sgcNavy text-white p-4 h-fit self-start w-fit max-w-xs">
         <h2 class="font-heading text-2xl">Contact Details</h2>
-        <ul class="mt-4 space-y-1 text-sm">
+        <ul class="mt-4 space-y-3 text-sm">
           <li><strong>Address:</strong> Aruvithura, Erattupetta, Kottayam, Kerala 686122</li>
           <li><strong>Phone:</strong> +91 4822 273 235</li>
           <li><strong>Email:</strong> <a class="underline" href="mailto:info@sgcaruvithura.ac.in">info@sgcaruvithura.ac.in</a></li>

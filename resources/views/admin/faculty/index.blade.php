@@ -58,6 +58,10 @@
                         <input name="specialization" class="mt-1 w-full rounded border-gray-300" />
                     </div>
                     <div>
+                        <label class="text-sm font-medium text-gray-700">Experience</label>
+                        <input name="experience" class="mt-1 w-full rounded border-gray-300" placeholder="8 years in higher education" />
+                    </div>
+                    <div>
                         <label class="text-sm font-medium text-gray-700">Experience (Years)</label>
                         <input name="experience_years" type="number" min="0" class="mt-1 w-full rounded border-gray-300" value="0" />
                     </div>
@@ -68,6 +72,10 @@
                     <div>
                         <label class="text-sm font-medium text-gray-700">Phone</label>
                         <input name="phone" class="mt-1 w-full rounded border-gray-300" />
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="text-sm font-medium text-gray-700">Bio</label>
+                        <textarea name="bio" rows="3" class="mt-1 w-full rounded border-gray-300"></textarea>
                     </div>
                     <div>
                         <label class="text-sm font-medium text-gray-700">Display Order</label>
@@ -133,6 +141,10 @@
                                     <input name="specialization" value="{{ $member->specialization }}" class="mt-1 w-full rounded border-gray-300" />
                                 </div>
                                 <div>
+                                    <label class="text-xs font-medium text-gray-600">Experience</label>
+                                    <input name="experience" value="{{ $member->experience }}" class="mt-1 w-full rounded border-gray-300" />
+                                </div>
+                                <div>
                                     <label class="text-xs font-medium text-gray-600">Experience (Years)</label>
                                     <input name="experience_years" type="number" min="0" value="{{ $member->experience_years }}" class="mt-1 w-full rounded border-gray-300" />
                                 </div>
@@ -143,6 +155,10 @@
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Phone</label>
                                     <input name="phone" value="{{ $member->phone }}" class="mt-1 w-full rounded border-gray-300" />
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="text-xs font-medium text-gray-600">Bio</label>
+                                    <textarea name="bio" rows="3" class="mt-1 w-full rounded border-gray-300">{{ $member->bio }}</textarea>
                                 </div>
                                 <div>
                                     <label class="text-xs font-medium text-gray-600">Display Order</label>

@@ -17,19 +17,22 @@ class FacultyController extends Controller
         try {
             $tableExists = Schema::hasTable('faculty_profiles');
             $faculties = $tableExists
-                ? FacultyProfile::query()->orderBy('display_order')->orderBy('name')->get()
+                ? FacultyProfile::with('department')->latest()->get()
                 : collect();
             $departments = Schema::hasTable('departments')
                 ? Department::query()->orderBy('name')->get()
                 : collect();
 
-            return view('admin.faculty.index', compact('faculties', 'tableExists', 'departments'));
+            $faculty = $faculties;
+
+            return view('admin.faculty.index', compact('faculties', 'faculty', 'tableExists', 'departments'));
         } catch (\Throwable $exception) {
             report($exception);
 
             return view('admin.faculty.index', [
                 'facultyMembers' => collect(),
                 'faculties' => collect(),
+                'faculty' => collect(),
                 'tableExists' => Schema::hasTable('faculty_profiles'),
                 'departments' => collect(),
             ])->with('error', 'Unable to load faculty records right now.');
@@ -44,8 +47,10 @@ class FacultyController extends Controller
             $validated = $this->validateRequest($request);
 
             $photoPath = $request->file('photo')
-                ? $request->file('photo')->store('faculty/photos', 'public')
+                ? $request->file('photo')->store('faculty', 'public')
                 : null;
+
+            unset($validated['photo']);
 
             FacultyProfile::create([
                 ...$validated,
@@ -66,18 +71,27 @@ class FacultyController extends Controller
 
     public function update(Request $request, FacultyProfile $faculty): RedirectResponse
     {
-        $validated = $this->validateRequest($request, true);
+        try {
+            $validated = $this->validateRequest($request, true);
+            unset($validated['photo']);
 
-        if ($request->hasFile('photo')) {
-            $validated['photo_path'] = $request->file('photo')->store('faculty/photos', 'public');
+            if ($request->hasFile('photo')) {
+                $validated['photo_path'] = $request->file('photo')->store('faculty', 'public');
+            }
+
+            $validated['is_active'] = $request->boolean('is_active', true);
+            $validated['is_hod'] = $request->boolean('is_hod', false);
+
+            $faculty->update($validated);
+
+            return back()->with('success', 'Faculty profile updated.');
+        } catch (\Throwable $exception) {
+            report($exception);
+
+            return back()
+                ->withInput()
+                ->with('error', 'Failed to update faculty profile. Please verify data and try again.');
         }
-
-        $validated['is_active'] = $request->boolean('is_active', true);
-        $validated['is_hod'] = $request->boolean('is_hod', false);
-
-        $faculty->update($validated);
-
-        return back()->with('success', 'Faculty profile updated.');
     }
 
     public function destroy(FacultyProfile $faculty): RedirectResponse
@@ -96,16 +110,18 @@ class FacultyController extends Controller
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'designation' => ['required', 'string', 'max:120'],
-            'department' => ['required', 'string', 'max:120'],
+            'department' => ['nullable', 'string', 'max:120'],
             'qualification' => ['nullable', 'string', 'max:150'],
             'specialization' => ['nullable', 'string', 'max:150'],
-            'experience_years' => ['required', 'integer', 'min:0', 'max:60'],
+            'experience' => ['nullable', 'string', 'max:120'],
+            'experience_years' => ['nullable', 'integer', 'min:0', 'max:60'],
             'email' => ['nullable', 'email', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'bio' => ['nullable', 'string'],
             'department_id' => $departmentRule,
             'display_order' => ['nullable', 'integer', 'min:0'],
             'is_hod' => ['nullable', 'boolean'],
-            'photo' => [$updating ? 'nullable' : 'nullable', 'image', 'max:2048'],
+            'photo' => ['nullable', 'image', 'max:2048'],
         ]);
     }
 }

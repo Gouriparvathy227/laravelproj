@@ -22,8 +22,8 @@
               loading="lazy"
               src="https://logo.clearbit.com/{{ $company['domain'] }}"
               onerror="this.onerror=null;this.src='{{ asset('assets/images/company-placeholder.png') }}';"
-              alt="{{ $company['name'] }} logo"
-              class="h-10 w-full object-contain"
+              alt="{{ $company['name'] ?? 'Company' }}"
+              class="h-12 w-auto object-contain mx-auto"
             />
             <figcaption class="mt-3 font-semibold text-slate-700">{{ $company['name'] }}</figcaption>
           </figure>
