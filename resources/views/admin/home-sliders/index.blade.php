@@ -18,6 +18,15 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if($errors->any())
+                    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 
                 <h3 class="text-xl font-bold mb-4">Current Sliders</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

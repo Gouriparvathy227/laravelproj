@@ -2,7 +2,7 @@
   --color-primary: #1B3A6B;
   --color-secondary: #C8952A;
   --color-accent: #16A085;
-  --color-bg: #F8F5F0;
+  --color-bg: #D8C6A8;
   --color-footer-bg: #0F2240;
   --color-footer-text: #E8E0D0;
   --color-card-bg: #FFFFFF;
@@ -33,17 +33,16 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
   color: var(--color-text);
-  background: radial-gradient(circle at 14% 8%, rgba(200, 149, 42, 0.16), transparent 34%),
-    radial-gradient(circle at 88% 0%, rgba(22, 160, 133, 0.12), transparent 30%),
-    linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
+  background: linear-gradient(180deg, #cdb893 0%, var(--color-bg) 56%, #e0d0b4 100%);
   overflow-y: auto;
-  overscroll-behavior-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable both-edges;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y pinch-zoom;
   line-height: 1.6;
@@ -209,9 +208,9 @@ h6,
 .stat-card,
 .feature-card,
 .panel-card {
-  background: #F5C518;
-  color: #111827;
-  border: 1px solid rgba(146, 109, 7, 0.36);
+  background: #1B3A6B;
+  color: #ffffff;
+  border: 1px solid rgba(200, 149, 42, 0.42);
   border-radius: 1.05rem;
   box-shadow: 0 14px 30px rgba(27, 58, 107, 0.16);
   transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease, filter 0.26s ease;
@@ -221,7 +220,7 @@ h6,
 .feature-card:hover,
 .panel-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 18px 36px rgba(27, 58, 107, 0.24);
+  box-shadow: 0 18px 36px rgba(12, 27, 49, 0.38);
   border-color: rgba(27, 58, 107, 0.45);
   filter: saturate(1.03);
 }
@@ -237,10 +236,12 @@ h6,
 
 .bg-sgcNavy {
   background-color: var(--color-primary);
+  color: #ffffff;
 }
 
 .bg-sgcGold {
-  background-color: var(--sgc-gold);
+  background-color: #F5C518;
+  color: #111827;
 }
 
 .table-wrap {
@@ -248,9 +249,9 @@ h6,
 }
 
 .bg-campus {
-  background-image: radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--color-secondary) 22%, transparent), transparent 35%),
-    radial-gradient(circle at 80% 0%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 30%),
-    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 92%, #ffffff 8%) 0%, var(--color-bg) 100%);
+  background-image: radial-gradient(circle at 16% 8%, rgba(27, 58, 107, 0.12), transparent 36%),
+    radial-gradient(circle at 88% 4%, rgba(245, 197, 24, 0.2), transparent 34%),
+    linear-gradient(180deg, #d3c09f 0%, var(--color-bg) 52%, #e3d4ba 100%);
 }
 
 main > header[class*='rounded'],
@@ -282,6 +283,36 @@ main aside.text-white *,
 main section.text-white *,
 main div.text-white * {
   color: inherit;
+}
+
+main .table-mobile-cards thead tr,
+main table thead tr {
+  background: #1B3A6B;
+  color: #ffffff;
+}
+
+main .table-mobile-cards tbody tr,
+main table tbody tr {
+  background: #F5C518;
+  color: #111827;
+}
+
+.stat-card .text-slate-500,
+.stat-card .text-slate-600,
+.feature-card .text-slate-500,
+.feature-card .text-slate-600,
+.panel-card .text-slate-500,
+.panel-card .text-slate-600 {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.stat-card .text-slate-900,
+.feature-card .text-slate-900,
+.panel-card .text-slate-900,
+.stat-card .text-slate-700,
+.feature-card .text-slate-700,
+.panel-card .text-slate-700 {
+  color: #ffffff !important;
 }
 
 main > header[class*='rounded']:hover,
