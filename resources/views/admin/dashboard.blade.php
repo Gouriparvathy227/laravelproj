@@ -13,11 +13,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-                <a href="{{ route('admin.home-sliders.index') }}" class="block p-5 border rounded-lg bg-white hover:bg-gray-50 transition">
-                    <h3 class="font-bold text-lg text-blue-700">Homepage Slider</h3>
-                    <p class="text-sm text-gray-600 mt-1">Upload and order carousel images for home banner.</p>
-                </a>
-
                 <a href="{{ route('admin.departments.index') }}" class="block p-5 border rounded-lg bg-white hover:bg-gray-50 transition">
                     <h3 class="font-bold text-lg text-blue-700">Departments</h3>
                     <p class="text-sm text-gray-600 mt-1">Manage department cards and detail-page content.</p>

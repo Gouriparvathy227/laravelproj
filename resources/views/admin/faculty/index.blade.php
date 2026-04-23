@@ -35,7 +35,7 @@
 
             <div class="bg-white shadow-sm rounded-lg p-6">
                 <h3 class="font-semibold text-lg text-gray-900">Add Faculty Profile</h3>
-                <form method="POST" action="{{ route('admin.faculty.store') }}" enctype="multipart/form-data" class="mt-4 grid md:grid-cols-2 gap-4">
+                <form method="POST" action="{{ route('admin.faculty.store') }}" class="mt-4 grid md:grid-cols-2 gap-4">
                     @csrf
                     <div>
                         <label class="text-sm font-medium text-gray-700">Name</label>
@@ -90,9 +90,8 @@
                         <label class="text-sm font-medium text-gray-700">Display Order</label>
                         <input name="display_order" type="number" min="0" class="mt-1 w-full rounded border-gray-300" value="0" />
                     </div>
-                    <div>
-                        <label class="text-sm font-medium text-gray-700">Photo</label>
-                        <input name="photo" type="file" accept="image/*" class="mt-1 w-full text-sm" />
+                    <div class="md:col-span-2">
+                        <p class="text-xs text-gray-500">Photo upload is disabled for faculty profiles.</p>
                     </div>
                     <div class="md:col-span-2">
                         <label class="inline-flex items-center gap-2 text-sm text-gray-700">
@@ -117,7 +116,7 @@
                 <div class="mt-4 space-y-4">
                     @forelse ($faculties as $member)
                         <div class="border rounded-lg p-4">
-                            <form method="POST" action="{{ route('admin.faculty.update', $member) }}" enctype="multipart/form-data" class="grid md:grid-cols-2 gap-3">
+                            <form method="POST" action="{{ route('admin.faculty.update', $member) }}" class="grid md:grid-cols-2 gap-3">
                                 @csrf
                                 @method('PATCH')
                                 <div>
@@ -173,9 +172,8 @@
                                     <label class="text-xs font-medium text-gray-600">Display Order</label>
                                     <input name="display_order" type="number" min="0" value="{{ $member->display_order }}" class="mt-1 w-full rounded border-gray-300" />
                                 </div>
-                                <div>
-                                    <label class="text-xs font-medium text-gray-600">Replace Photo</label>
-                                    <input name="photo" type="file" accept="image/*" class="mt-1 w-full text-sm" />
+                                <div class="md:col-span-2">
+                                    <p class="text-xs text-gray-500">Photo replacement is disabled for faculty profiles.</p>
                                 </div>
                                 <div class="md:col-span-2">
                                     <label class="inline-flex items-center gap-2 text-sm text-gray-700">

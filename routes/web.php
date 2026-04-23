@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController;
 use App\Http\Controllers\Admin\FacultyController as AdminFacultyController;
-use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\NoticeController as AdminNoticeController;
 use App\Http\Controllers\AdmissionController;
@@ -66,11 +65,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:super_admin,dept_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-
-    Route::get('/home-sliders', [HomeSliderController::class, 'index'])->name('home-sliders.index');
-    Route::post('/home-sliders', [HomeSliderController::class, 'store'])->name('home-sliders.store');
-    Route::patch('/home-sliders/{id}', [HomeSliderController::class, 'update'])->name('home-sliders.update');
-    Route::delete('/home-sliders/{id}', [HomeSliderController::class, 'destroy'])->name('home-sliders.destroy');
 
     Route::get('/departments', [AdminDepartmentController::class, 'index'])->name('departments.index');
     Route::post('/departments', [AdminDepartmentController::class, 'store'])->name('departments.store');

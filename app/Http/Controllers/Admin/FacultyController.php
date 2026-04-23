@@ -47,16 +47,9 @@ class FacultyController extends Controller
                 'experience' => 'nullable|string|max:255',
                 'department_id' => 'nullable|exists:departments,id',
                 'is_hod' => 'nullable|boolean',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ]);
 
-            $photo = $request->hasFile('photo')
-                ? $request->file('photo')->store('faculty', 'public')
-                : null;
-
             $payload = array_merge($validated, [
-                'photo' => $photo,
-                'photo_path' => $photo,
                 'is_hod' => $request->boolean('is_hod'),
                 'department' => optional(Department::find($validated['department_id'] ?? null))->name,
                 'experience_years' => $this->extractExperienceYears($validated['experience'] ?? null),
@@ -88,7 +81,6 @@ class FacultyController extends Controller
                 'experience' => 'nullable|string|max:255',
                 'department_id' => 'nullable|exists:departments,id',
                 'is_hod' => 'nullable|boolean',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ]);
 
             $payload = [
@@ -98,12 +90,6 @@ class FacultyController extends Controller
                 'experience_years' => $this->extractExperienceYears($validated['experience'] ?? null),
                 'is_active' => $request->boolean('is_active', true),
             ];
-
-            if ($request->hasFile('photo')) {
-                $photo = $request->file('photo')->store('faculty', 'public');
-                $payload['photo'] = $photo;
-                $payload['photo_path'] = $photo;
-            }
 
             $faculty->update($this->filterToExistingColumns($payload));
 
