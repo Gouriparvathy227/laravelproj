@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DepartmentController as AdminDepartmentController
 use App\Http\Controllers\Admin\FacultyController as AdminFacultyController;
 use App\Http\Controllers\Admin\HomeSliderController;
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
+use App\Http\Controllers\Admin\NoticeController as AdminNoticeController;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DepartmentController;
@@ -86,6 +87,11 @@ Route::middleware(['auth', 'role:super_admin,dept_admin'])->prefix('admin')->nam
 
     Route::get('/admissions', [AdminAdmissionController::class, 'index'])->name('admissions.index');
     Route::patch('/admissions/{application}', [AdminAdmissionController::class, 'updateStatus'])->name('admissions.update');
+
+    Route::get('/notices', [AdminNoticeController::class, 'index'])->name('notices.index');
+    Route::post('/notices', [AdminNoticeController::class, 'store'])->name('notices.store');
+    Route::patch('/notices/{notice}', [AdminNoticeController::class, 'update'])->name('notices.update');
+    Route::delete('/notices/{notice}', [AdminNoticeController::class, 'destroy'])->name('notices.destroy');
 });
 
 Route::middleware(['auth', 'role:faculty'])->prefix('faculty')->name('faculty.')->group(function () {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class NoticeController extends Controller
@@ -47,6 +49,35 @@ class NoticeController extends Controller
                 'body' => 'Volunteers invited for environmental and social awareness activities.',
             ],
         ];
+
+        if (Schema::hasTable('notices')) {
+            try {
+                $dbNotices = Notice::query()
+                    ->where('is_published', true)
+                    ->where(function ($query) {
+                        $query->whereNull('expires_at')
+                            ->orWhere('expires_at', '>=', now());
+                    })
+                    ->orderByDesc('published_at')
+                    ->orderByDesc('created_at')
+                    ->get()
+                    ->map(function (Notice $notice): array {
+                        return [
+                            'category' => (string) $notice->category,
+                            'published' => optional($notice->published_at ?? $notice->created_at)?->format('d M Y') ?? now()->format('d M Y'),
+                            'title' => (string) $notice->title,
+                            'body' => (string) $notice->body,
+                        ];
+                    })
+                    ->all();
+
+                if (!empty($dbNotices)) {
+                    $allNotices = $dbNotices;
+                }
+            } catch (\Throwable $exception) {
+                report($exception);
+            }
+        }
 
         $activeCategory = (string) $request->query('category', 'all');
         $allowed = ['all', 'exam', 'admission', 'event', 'scholarship', 'general'];

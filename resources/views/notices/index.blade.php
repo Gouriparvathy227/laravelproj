@@ -4,6 +4,11 @@
 <header class="rounded-3xl bg-white border border-slate-200 p-8">
       <h1 class="font-heading text-4xl text-sgcNavy">Notices & Events</h1>
       <p class="mt-4 text-slate-700">Stay updated on exam notifications, admissions announcements, scholarships, and campus events.</p>
+      @auth
+        @if(in_array(auth()->user()->role, ['super_admin', 'dept_admin'], true))
+          <a href="{{ route('admin.notices.index') }}" class="mt-4 inline-flex rounded-lg bg-sgcNavy px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus-ring">Manage Notices</a>
+        @endif
+      @endauth
     </header>
 
     <section class="mt-8 rounded-2xl bg-white border border-slate-200 p-7" x-data="{ f: '{{ $activeCategory }}', items: {{ \Illuminate\Support\Js::from($notices) }} }">

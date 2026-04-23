@@ -37,6 +37,11 @@
                     <h3 class="font-bold text-lg text-blue-700">Admission Requests</h3>
                     <p class="text-sm text-gray-600 mt-1">Review online admission applications submitted by students.</p>
                 </a>
+
+                <a href="{{ route('admin.notices.index') }}" class="block p-5 border rounded-lg bg-white hover:bg-gray-50 transition">
+                    <h3 class="font-bold text-lg text-blue-700">Notices & Events</h3>
+                    <p class="text-sm text-gray-600 mt-1">Create, publish, and update notices shown on the public notices page.</p>
+                </a>
             </div>
         </div>
     </div>
