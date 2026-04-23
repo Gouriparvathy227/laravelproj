@@ -154,6 +154,12 @@
     </div>
   </footer>
 
+  <button id="scroll-top-btn" class="scroll-top-btn focus-ring" type="button" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M10 3a1 1 0 0 1 .707.293l5 5a1 1 0 1 1-1.414 1.414L11 6.414V16a1 1 0 1 1-2 0V6.414L5.707 9.707A1 1 0 0 1 4.293 8.293l5-5A1 1 0 0 1 10 3Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
   <script src="{{ asset('assets/js/main.js') }}"></script>
   </div>
 </body>
